@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :title %><br>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, maxlength: 150, size: 15, required: true %>
   </div>
   <div class="field">
     <%= f.label :description %><br>

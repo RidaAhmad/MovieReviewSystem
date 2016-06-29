@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160628093525) do
+ActiveRecord::Schema.define(version: 20160629065650) do
+
+  create_table "actors", force: :cascade do |t|
+    t.string   "name",       limit: 30,    null: false
+    t.text     "bio",        limit: 65535
+    t.string   "gender",     limit: 10,    null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
 
   create_table "attachments", force: :cascade do |t|
     t.integer  "attachable_id",      limit: 4

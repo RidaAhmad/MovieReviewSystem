@@ -7,6 +7,9 @@
     <tr>
       <th>Title</th>
       <th>Description</th>
+      <th>Genre</th>
+      <th>Release Date</th>
+      <th>Duration</th>
       <th>Trailer</th>
       <th>Posters</th>
       <th>Cast</th>
@@ -19,6 +22,9 @@
       <tr>
         <td><%= title_titleize(movie.title) %></td>
         <td><%= raw movie.description %></td>
+        <td><%= movie.genre.titleize %></td>
+        <td><%= movie.release_date %></td>
+        <td><%= movie.duration %></td>
         <td><%= raw movie.trailer %></td>
         <td><%= render partial: "posters", locals: { posters: movie.attachments } %></td>
         <td><%= render partial: "actors", locals: { movie_actors: movie.actors } %></td>

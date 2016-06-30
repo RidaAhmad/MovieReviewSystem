@@ -33,6 +33,7 @@
   <div class="form-actions">
     <%= f.link_to_add "Add new attachment", :attachments %>
   </div>
+  <%= f.select :actor_ids, options_for_select(@all_movie_actors, @selected_movie_actors), {}, { multiple: true } %>
   <div class="actions">
     <%= f.submit %>
   </div>

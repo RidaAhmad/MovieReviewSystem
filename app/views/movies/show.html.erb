@@ -21,5 +21,13 @@
 
 <%= render partial: "posters", locals: { posters: @movie.attachments } %>
 
+<p>
+  <strong>Cast:</strong>
+</p>
+
+<%= render partial: "actors", locals: { movie_actors: @movie.actors } %>
+
+<br/>
+
 <%= link_to 'Edit', edit_movie_path(@movie) %> |
 <%= link_to 'Back', movies_path %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160629065650) do
+ActiveRecord::Schema.define(version: 20160629092030) do
 
   create_table "actors", force: :cascade do |t|
     t.string   "name",       limit: 30,    null: false
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 20160629065650) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
+
+  create_table "appearances", force: :cascade do |t|
+    t.integer  "movie_id",   limit: 4, null: false
+    t.integer  "actor_id",   limit: 4, null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "appearances", ["actor_id"], name: "index_appearances_on_actor_id", using: :btree
+  add_index "appearances", ["movie_id"], name: "index_appearances_on_movie_id", using: :btree
 
   create_table "attachments", force: :cascade do |t|
     t.integer  "attachable_id",      limit: 4

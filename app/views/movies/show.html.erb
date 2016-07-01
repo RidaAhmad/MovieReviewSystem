@@ -1,48 +1,103 @@
-<p id="notice"><%= notice %></p>
+<div class='container'>
+  <div class='row'>
+    <div>
+      <div class='col-md-12'>
+        <div class='col-md-offset-1'></div>
+        <div class='show-movie'>
 
-<p>
-  <strong>Title:</strong>
-  <%= title_titleize(@movie.title) %>
-</p>
+          <div class='movie-name'>
+            <div class='text-center'>
+              <%= title_titleize(@movie.title) %>
+            </div>
+          </div>
 
-<p>
-  <strong>Description:</strong>
-  <%= raw @movie.description %>
-</p>
+          <div class='clearfix'></div>
+          <div class='col-md-6'>
 
-<p>
-  <strong>Genre:</strong>
-  <%= @movie.genre.titleize %>
-</p>
+            <div>
+              <strong>Posters:</strong>
+              <%= image_tag @movie.attachments.first.image.url(:large) %>
+            </div>
 
-<p>
-  <strong>Release Date:</strong>
-  <%= @movie.release_date %>
-</p>
+            <div>
+              <%= render partial: 'posters', locals: { posters: @movie.attachments } %>
+            </div>
 
-<p>
-  <strong>Duration:</strong>
-  <%= @movie.duration %>
-</p>
+          </div>
 
-<p>
-  <strong>Trailer:</strong>
-  <%= raw @movie.trailer %>
-</p>
+          <div class='col-md-4'>
 
-<p>
-  <strong>Posters:</strong>
-</p>
+            <div class='movie-info'>
+              <strong>Title:</strong>
+              <%= title_titleize(@movie.title) %>
+            </div>
 
-<%= render partial: "posters", locals: { posters: @movie.attachments } %>
+            <div class='movie-info'>
+              <strong>Genre:</strong>
+              <%= @movie.genre.titleize %>
+            </div>
 
-<p>
-  <strong>Cast:</strong>
-</p>
+            <div class='movie-info'>
+              <strong>Duration:</strong>
+              <%= @movie.duration %>minutes
+            </div>
 
-<%= render partial: "actors", locals: { movie_actors: @movie.actors } %>
+            <div class='movie-info'>
+              <strong>Release Date:</strong>
+              <%= @movie.release_date %>
+            </div>
 
-<br/>
+            <div class='movie-info'>
+              <strong>Cast:-</strong>
+            </div>
+            <div>
+              <%= render partial: 'actors', locals: { movie_actors: @movie.actors } %>
+            </div>
 
-<%= link_to 'Edit', edit_movie_path(@movie) %> |
-<%= link_to 'Back', movies_path %>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div>
+
+      <div class='col-md-12'>
+        <div class='col-md-offset-1'></div>
+          <div class='show-movie'>
+            <div class='col-md-10'>
+
+              <div class='movie-info'>
+                <strong>Description:-</strong>
+                <%= raw @movie.description %>
+              </div>
+
+              <div>
+                <strong>Trailer:</strong>
+              </div>
+              <div>
+                <%= raw @movie.trailer %>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      <div class='col-md-12'>
+        <div class='col-md-offset-1'></div>
+          <div class='show-movie'>
+            <div class='col-md-10'>
+
+            <div>
+              <%= link_to 'Edit', edit_movie_path(@movie) %> |
+              <%= link_to 'Back', movies_path %>
+            </div>
+
+            </div>
+          </div>
+        </div>
+
+    </div>
+
+  </div>
+</div>

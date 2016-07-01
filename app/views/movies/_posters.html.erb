@@ -1,3 +1,7 @@
-<% posters.each do |poster| %>
-  <%= image_tag poster.image.url(:medium) %>
+<% posters.in_groups_of(4, false).each do |poster_group| %>
+  <div>
+  <% poster_group.each do |poster| %>
+    <%= image_tag poster.image.url(:thumb) %>
+  <% end %>
+  </div>
 <% end %>

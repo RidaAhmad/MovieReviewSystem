@@ -1,6 +1,8 @@
-<h1>Editing Movie</h1>
+<h1 class='form-movie-heading'>Editing Movie</h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @movie %> |
-<%= link_to 'Back', movies_path %>
+<div class='form-movie-links'>
+  <%= link_to 'Show', @movie, class: 'navbar-link' %> |
+  <%= link_to 'Back', movies_path, class: 'navbar-link' %>
+</div>

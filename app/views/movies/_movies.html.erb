@@ -1,0 +1,19 @@
+<% movies.in_groups_of(4, false).each do |movie_group| %>
+  <div class='row'>
+  <% movie_group.each do |movie| %>
+    <div class='col-md-3'>
+      <div class='text-center'>
+        <strong><%= title_titleize(movie.title) %></strong>
+      </div>
+      <%= link_to(image_tag(movie.attachments.first.image.url(:medium)), movie) %>
+      <div class='clearfix'></div>
+      <div align='center' class='movie-info'>
+        <%= link_to 'Show', movie, class: 'btn btn-sm btn-success' %>
+        <%= link_to 'Edit', edit_movie_path(movie), class: 'btn btn-sm btn-primary' %>
+        <%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+      </div>
+    </div>
+  <% end %>
+  </div>
+  <div class='movie-spacing'></div>
+<% end %>

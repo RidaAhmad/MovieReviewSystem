@@ -5,5 +5,5 @@ class User < ActiveRecord::Base
 
   has_one :attachment, as: :attachable, dependent: :destroy
 
-  accepts_nested_attributes_for :attachment, allow_destroy: :true
+  accepts_nested_attributes_for :attachment, allow_destroy: :true, reject_if: proc { |attributes| attributes['image'].blank? }
 end

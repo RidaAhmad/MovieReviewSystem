@@ -1,1 +1,50 @@
-Welcome to Movie Mania!
+<div class='container'>
+
+  <div class='margin-padded-space'>
+    <div class='text-center'>
+      <div class='movie-name'>
+        <strong>Featured Movies</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col-md-12 offset-2'>
+      <div>
+        <%= render partial: 'movies', locals: { movies: @featured_movies } %>
+      </div>
+    </div>
+  </div>
+
+  <div class='margin-padded-space'></div>
+  <div class='text-center' align='center'>
+    <%= link_to 'View All', movies_path(filter: 'featured'), class: 'btn btn-sm btn-info' %>
+  </div>
+
+  <hr/>
+
+  <div class='margin-padded-space'>
+    <div class='text-center'>
+      <div class='movie-name'>
+        <strong>Latest Movies</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col-md-12 offset-2'>
+      <div>
+        <%= render partial: 'movies', locals: { movies: @latest_movies } %>
+      </div>
+
+    </div>
+  </div>
+
+  <div class='margin-padded-space'></div>
+  <div class='text-center' align='center'>
+    <%= link_to 'View All', movies_path(filter: 'latest'), class: 'btn btn-sm btn-info' %>
+  </div>
+
+  <hr/>
+
+</div>

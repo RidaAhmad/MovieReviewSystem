@@ -6,7 +6,7 @@ class MoviesController < ApplicationController
   # GET /movies
   # GET /movies.json
   def index
-    @movies = Movie.all
+    params[:filter].present? ? @movies = Movie.send(params[:filter].to_sym) : @movies = Movie.all
   end
 
   # GET /movies/1

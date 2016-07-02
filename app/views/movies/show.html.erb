@@ -1,6 +1,6 @@
 <div class='container'>
   <div class='row'>
-    <div>
+    <div class='movie-details'>
       <div class='col-md-12'>
         <div class='col-md-offset-1'></div>
         <div class='show-movie'>
@@ -12,11 +12,11 @@
           </div>
 
           <div class='clearfix'></div>
-          <div class='col-md-6'>
+          <div class='col-md-5'>
 
             <div>
               <strong>Posters:</strong>
-              <%= image_tag @movie.attachments.first.image.url(:large) %>
+              <%= render partial: 'poster', locals: { poster: @movie.attachments.first } %>
             </div>
 
             <div>
@@ -25,7 +25,7 @@
 
           </div>
 
-          <div class='col-md-4'>
+          <div class='col-md-5'>
 
             <div class='movie-info'>
               <strong>Title:</strong>
@@ -39,7 +39,7 @@
 
             <div class='movie-info'>
               <strong>Duration:</strong>
-              <%= @movie.duration %>minutes
+              <%= @movie.duration %> minutes
             </div>
 
             <div class='movie-info'>
@@ -58,9 +58,6 @@
 
         </div>
       </div>
-    </div>
-
-    <div>
 
       <div class='col-md-12'>
         <div class='col-md-offset-1'></div>
@@ -75,7 +72,7 @@
               <div>
                 <strong>Trailer:</strong>
               </div>
-              <div>
+              <div class='iframe-div'>
                 <%= raw @movie.trailer %>
               </div>
 
@@ -83,20 +80,20 @@
           </div>
         </div>
 
-      <div class='col-md-12'>
-        <div class='col-md-offset-1'></div>
-          <div class='show-movie'>
-            <div class='col-md-10'>
+    </div>
 
-            <div>
-              <%= link_to 'Edit', edit_movie_path(@movie) %> |
-              <%= link_to 'Back', movies_path %>
-            </div>
+    <div class='col-md-12'>
+      <div class='col-md-offset-1'></div>
+      <div class='show-movie'>
+        <div class='col-md-10'>
 
-            </div>
+          <div>
+            <%= link_to 'Edit', edit_movie_path(@movie) %> |
+            <%= link_to 'Back', movies_path %>
           </div>
-        </div>
 
+       </div>
+      </div>
     </div>
 
   </div>

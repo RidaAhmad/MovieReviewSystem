@@ -5,7 +5,11 @@
       <div class='text-center'>
         <strong><%= title_titleize(movie.title) %></strong>
       </div>
-      <%= link_to(image_tag(movie.attachments.first.image.url(:medium)), movie) %>
+      <% if movie.attachments.first %>
+        <%= link_to(image_tag(movie.attachments.first.image.url(:medium)), movie) %>
+      <% else %>
+        <%= image_tag('shared/poster-not-available.png', size: '250x250', alt: 'Movie Poster Unavailable') %>
+      <% end %>
       <div class='clearfix'></div>
       <div align='center' class='movie-info'>
         <%= link_to 'Show', movie, class: 'btn btn-sm btn-success' %>
@@ -15,5 +19,5 @@
     </div>
   <% end %>
   </div>
-  <div class='movie-spacing'></div>
+  <div class='margin-padded-space'></div>
 <% end %>

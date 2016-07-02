@@ -1,32 +1,37 @@
 <div class='page-header'>
-
-  <div class='text-center'>
-    <div id='site-title'>
-      Movie Review System
+  <div class='header-div'>
+    <div class='text-center'>
+      <%= link_to image_tag('shared/movie-camera.png', size: '100x75'), movies_path %>
+      <span id='site-title'>
+        <strong>Movie Review System</strong>
+      </span>
     </div>
+
+    <div class='margin-padded-space'>
+      <p class='navbar-text pull-right'>
+        <span class="glyphicon glyphicon-search"></span>
+        <%= link_to 'Movies', movies_path, class: 'navbar-link' %> |
+        <%= link_to 'Home', root_path, class: 'navbar-link' %> |
+        <% if user_signed_in? %>
+          <strong><%= current_user.email %></strong> |
+          <%= link_to 'Edit profile', edit_user_registration_path, class: 'navbar-link' %> |
+          <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'navbar-link' %>
+        <% else %>
+          <%= link_to 'Sign up', new_user_registration_path, class: 'navbar-link' %> |
+          <%= link_to 'Login', new_user_session_path, class: 'navbar-link' %>
+        <% end %>
+      </p>
+    </div>
+
+    <div class='margin-padded-space'>
+      <div class='msg-container'>
+        <% if notice %>
+          <p class='alert alert-success'><%= notice %></p>
+        <% elsif alert %>
+          <p class='alert alert-danger'><%= alert %></p>
+        <% end %>
+      </div>
+    </div>
+
   </div>
-
-  <div>
-    <p class='navbar-text pull-right'>
-      <%= link_to 'Movies', movies_path, class: 'navbar-link' %> |
-      <%= link_to 'Home', root_path, class: 'navbar-link' %> |
-      <% if user_signed_in? %>
-        <strong><%= current_user.email %></strong> |
-        <%= link_to 'Edit profile', edit_user_registration_path, class: 'navbar-link' %> |
-        <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'navbar-link' %>
-      <% else %>
-        <%= link_to 'Sign up', new_user_registration_path, class: 'navbar-link' %> |
-        <%= link_to 'Login', new_user_session_path, class: 'navbar-link' %>
-      <% end %>
-    </p>
-  <div>
-
-  <div class='container'>
-    <% if notice %>
-      <p class='alert alert-success'><%= notice %></p>
-    <% elsif alert %>
-      <p class='alert alert-danger'><%= alert %></p>
-    <% end %>
-  </div>
-
 </div>

@@ -1,5 +1,7 @@
 class Movie < ActiveRecord::Base
 
+  paginates_per 8
+
   GENRES = ['horror', 'comedy', 'action', 'crime', 'drama', 'thriller', 'fantasy', 'animation']
 
   validates :title, presence: true, length: { maximum: 150 }
@@ -11,7 +13,18 @@ class Movie < ActiveRecord::Base
   has_many :appearances, dependent: :destroy
   has_many :actors, through: :appearances
 
-  scope :featured, -> { where(featured: true) }
-  scope :latest, -> { order(release_date: :desc) }
+  scope :approved, -> { where(approved: true) }
+  scope :featured, -> { where(approved: true, featured: true) }
+  scope :latest, -> { where(approved: true).order(release_date: :desc) }
+
+  def self.retrieve_movies(movie_filter)
+    if movie_filter == 'featured'
+      self.featured
+    elsif movie_filter == 'latest'
+      self.latest
+    else
+      self.approved
+    end
+  end
 
 end

@@ -12,6 +12,13 @@ class MoviesController < ApplicationController
   # GET /movies/1
   # GET /movies/1.json
   def show
+    @review = Review.new
+    @reviews = @movie.reviews.page(params[:page])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @movie }
+    end
   end
 
   # GET /movies/new

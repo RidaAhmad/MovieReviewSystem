@@ -1,0 +1,2 @@
+$('#reviews-container').prepend("<%= escape_javascript (render partial: 'review', locals: { review: @review }) %>");
+$('#review_comment').val('')

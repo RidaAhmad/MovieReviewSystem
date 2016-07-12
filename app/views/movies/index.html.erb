@@ -21,12 +21,12 @@
   <%= link_to 'New Movie', new_movie_path, class: 'btn btn-sm btn-info' %>
 </div>
 
-<div class='text-center'>
-  <%= paginate @movies %>
-</div>
+<div class='margin-padded-space'>
+  <div class='text-center'>
+    <%= paginate @movies %>
+  </div>
 
-<div class='text-center'>
-  <%= page_entries_info @movies %>
+  <div class='text-center'>
+    <%= page_entries_info @movies %>
+  </div>
 </div>
-
-<div class='margin-padded-space'></div>

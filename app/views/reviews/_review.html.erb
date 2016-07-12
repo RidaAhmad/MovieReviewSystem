@@ -1,0 +1,20 @@
+<div id='review-id-<%= review.id %>'>
+  <div class='margin-padded-space'>
+    <div>
+      <b>User:</b>
+      <%= display_user_email(review.user) %>
+    </div>
+    <div>
+      <b>Review Comment:</b>
+      <%= review.comment %>
+    </div>
+    <% if review_owner?(review.user, current_user) %>
+      <span>
+        <%= link_to 'Edit', edit_movie_review_path(@movie, review), class: 'btn btn-sm btn-primary' %>
+      </span>
+      <span>
+        <%= link_to 'Destroy', [@movie, review], method: :delete, data: { confirm: 'Are you sure?' }, remote: true, class: 'btn btn-sm btn-danger' %>
+      </span>
+    <% end %>
+  </div>
+</div>

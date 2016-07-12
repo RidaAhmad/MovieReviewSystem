@@ -1,4 +1,4 @@
-<%= form_for([@movie, @review], remote: :true) do |f| %>
+<%= form_for([@movie, @review], remote: remote_form) do |f| %>
   <% if @review.errors.any? %>
     <div id='error_explanation'>
       <h2><%= pluralize(@review.errors.count, 'error') %> prohibited this review from being saved:</h2>
@@ -8,10 +8,11 @@
           <li><%= msg %></li>
         <% end %>
       </ul>
+
     </div>
   <% end %>
 
-   <div class='control-group'>
+  <div class='control-group'>
     <%= f.label :comment, class: 'control-label' %>
     <div class='clearfix'></div>
     <div class='controls'>
@@ -22,4 +23,5 @@
   <div class='form-actions'>
     <%= f.submit nil, class: 'btn btn-mini btn-info' %>
   </div>
+
 <% end %>

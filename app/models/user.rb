@@ -7,4 +7,5 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :attachment, allow_destroy: :true, reject_if: proc { |attributes| attributes['image'].blank? }
 
   has_many :reviews, dependent: :destroy
+  has_many :ratings, dependent: :destroy
 end

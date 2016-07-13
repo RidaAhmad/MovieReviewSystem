@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
-  resources :ratings
-
   resources :movies do
     resources :reviews
+    resources :ratings
   end
 
   devise_for :users

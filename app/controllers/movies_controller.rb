@@ -12,8 +12,25 @@ class MoviesController < ApplicationController
   # GET /movies/1
   # GET /movies/1.json
   def show
-    @review = Review.new
+    @review = @movie.reviews.new
     @reviews = @movie.reviews.page(params[:page])
+
+    @rating = @movie.ratings.new
+    if @movie.ratings.present?
+      @ratings = @movie.ratings
+      @average_rating = @movie.ratings.average(:score)
+
+      if user_signed_in?
+        movie_ratings = @movie.ratings.get_ratings(current_user.id)
+        if movie_ratings.present?
+          @rating = movie_ratings.first
+          @rating_score = @rating.score
+        end
+      end
+    else
+      @rating_score ||= 0
+      @average_rating = 0
+    end
 
     respond_to do |format|
       format.html # show.html.erb

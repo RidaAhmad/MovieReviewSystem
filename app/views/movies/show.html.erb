@@ -7,7 +7,7 @@
 
           <div class='movie-name'>
             <div class='text-center'>
-              <%= title_titleize(@movie.title) %>
+              <h1><%= title_titleize(@movie.title) %></h1>
             </div>
           </div>
 
@@ -78,7 +78,7 @@
 
               <% if user_signed_in? %>
                 <div>
-                  <h1>Add review</h1>
+                  <h2>Add Review</h2>
                   <%= render partial: 'reviews/form', locals: { remote_form: true }%>
                 </div>
               <% end %>
@@ -88,6 +88,18 @@
                 <div id='reviews-container'>
                   <%= render @reviews %>
                 </div>
+              </div>
+
+              <% if user_signed_in? %>
+                <div>
+                  <h2>Add Rating:</h2>
+                  <div class='star-rating' data-score=<%= @rating_score %>></div>
+                </div>
+              <% end %>
+
+              <div>
+                <h2>Rating:</h2>
+                <div class='avg-star-rating' data-score=<%= @average_rating %> ></div>
               </div>
 
             </div>
@@ -123,3 +135,9 @@
 
   </div>
 </div>
+
+<% if user_signed_in? %>
+  <%= hidden_field_tag :user_id, current_user.id %>
+  <%= hidden_field_tag :movie_id, @movie.id %>
+  <%= hidden_field_tag :rating_id, @rating.id %>
+<% end %>

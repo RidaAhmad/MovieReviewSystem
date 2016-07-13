@@ -1,11 +1,14 @@
 class RatingsController < ApplicationController
   before_action :set_rating, only: [ :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:create, :update, :edit, :destroy]
+  before_filter :set_movie
 
   def edit
   end
 
   def create
-    @rating = Rating.new(rating_params)
+    @rating = @movie.ratings.new(rating_params)
+    @rating.user_id = current_user.id
 
     respond_to do |format|
       if @rating.save
@@ -43,5 +46,9 @@ class RatingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def rating_params
       params.require(:rating).permit(:score)
+    end
+
+    def set_movie
+      @movie = Movie.find(params[:movie_id])
     end
 end

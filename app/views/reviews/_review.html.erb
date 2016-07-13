@@ -15,6 +15,12 @@
       <span>
         <%= link_to 'Destroy', [@movie, review], method: :delete, data: { confirm: 'Are you sure?' }, remote: true, class: 'btn btn-sm btn-danger' %>
       </span>
+    <% elsif user_signed_in? %>
+      <div id='report-review'>
+        <%= form_for([review, review.reports.build], remote: true) do |f| %>
+          <%= f.submit 'Report', data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-warning' %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>

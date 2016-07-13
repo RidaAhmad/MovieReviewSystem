@@ -18,7 +18,7 @@ class MoviesController < ApplicationController
     @rating = @movie.ratings.new
     if @movie.ratings.present?
       @ratings = @movie.ratings
-      @average_rating = @movie.ratings.average(:score)
+      @average_rating = @movie.get_average_rating
 
       if user_signed_in?
         movie_ratings = @movie.ratings.get_ratings(current_user.id)

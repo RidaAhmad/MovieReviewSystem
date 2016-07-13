@@ -29,4 +29,7 @@ class Movie < ActiveRecord::Base
     end
   end
 
+  def get_average_rating
+    ratings.present? ? ratings.average(:score) : 0
+  end
 end

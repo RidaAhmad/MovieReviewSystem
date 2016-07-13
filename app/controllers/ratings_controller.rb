@@ -23,6 +23,7 @@ class RatingsController < ApplicationController
     respond_to do |format|
       if @rating.update(rating_params)
         format.html { redirect_to @rating, notice: 'Rating was successfully updated.' }
+        format.json { render json: { rating: @rating, average: @movie.get_average_rating } }
       else
         format.html { render :edit }
       end

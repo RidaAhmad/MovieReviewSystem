@@ -29,6 +29,8 @@ $(document).on 'page:change', ->
             user_id: user_id
             score: score
           dataType: 'json'
+          success: (data) ->
+            $('.avg-star-rating').raty 'set', score: data.average
       else
         $.ajax
           type: 'PATCH'
@@ -38,3 +40,5 @@ $(document).on 'page:change', ->
             user_id: user_id
             score: score
           dataType: 'json'
+          success: (data) ->
+            $('.avg-star-rating').raty 'set', score: data.average

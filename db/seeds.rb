@@ -11,3 +11,4 @@ Actor.create!(name: 'Melanie Laurent', bio: 'Melanie Laurent is a French actress
 Actor.create!(name: 'Mark Ruffalo', bio: 'Mark Alan Ruffalo is an American actor, director, humanitarian, social activist, and film producer. He made his screen debut in an episode of CBS Summer Playhouse, followed by minor film roles.', gender: 'male')
 Actor.create!(name: 'Woody Harrelson', bio: 'Woodrow Tracy Harrelson is an American actor, activist and playwright. He is a two-time Academy Award nominee and has won one Emmy Award out of seven nominations.', gender: 'male')
 Actor.create!(name: 'Angelina Jolie', bio: 'Angelina Jolie Pitt is an American actress, filmmaker, and humanitarian. She has received an Academy Award, two Screen Actors Guild Awards, and three Golden Globe Awards.', gender: 'female')
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')

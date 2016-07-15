@@ -1,7 +1,7 @@
 <div class='page-header'>
   <div class='header-div'>
-    <div class='text-center'>
-      <%= link_to image_tag('shared/movie-camera.png', size: '100x75'), movies_path %>
+    <div align='center'>
+      <%= link_to image_tag('shared/movie-camera.png', size: '100x75', class: 'img-responsive'), movies_path %>
       <span id='site-title'>
         <strong>Movie Review System</strong>
       </span>
@@ -11,6 +11,7 @@
       <p class='navbar-text pull-right'>
         <span class="glyphicon glyphicon-search"></span>
         <%= link_to 'Movies', movies_path, class: 'navbar-link' %> |
+        <%= link_to 'New Movie', new_movie_path, class: 'navbar-link' %> |
         <%= link_to 'Home', root_path, class: 'navbar-link' %> |
         <% if user_signed_in? %>
           <strong><%= current_user.email %></strong> |

@@ -1,5 +1,5 @@
 <% if poster.present? %>
-  <%= image_tag poster.image.url(:large) %>
+  <%= image_tag(poster.image.url(:large), class: 'img-responsive') %>
 <% else %>
-  <%= image_tag('shared/poster-not-available.png', size: '400x500', alt: 'Movie Poster Unavailable') %>
+  <%= image_tag('shared/poster-not-available.png', size: '400x500', alt: 'Movie Poster Unavailable', class: 'img-responsive') %>
 <% end %>

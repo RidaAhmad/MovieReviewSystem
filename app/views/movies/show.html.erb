@@ -1,4 +1,4 @@
-<div class='container'>
+<div class='container movie-show'>
   <div class='row'>
     <div class='movie-details'>
       <div class='col-md-12'>
@@ -15,7 +15,7 @@
           <div class='col-md-5'>
 
             <div>
-              <strong>Posters:</strong>
+              <h2>Posters:</h2>
               <%= render partial: 'poster', locals: { poster: @movie.attachments.first } %>
             </div>
 
@@ -28,27 +28,27 @@
           <div class='col-md-5'>
 
             <div class='movie-info'>
-              <strong>Title:</strong>
+              <h2>Title:</h2>
               <%= title_titleize(@movie.title) %>
             </div>
 
             <div class='movie-info'>
-              <strong>Genre:</strong>
+              <h2>Genre:</h2>
               <%= @movie.genre.titleize %>
             </div>
 
             <div class='movie-info'>
-              <strong>Duration:</strong>
+              <h2>Duration:</h2>
               <%= @movie.duration %> minutes
             </div>
 
             <div class='movie-info'>
-              <strong>Release Date:</strong>
+              <h2>Release Date:</h2>
               <%= @movie.release_date %>
             </div>
 
             <div class='movie-info'>
-              <strong>Cast:-</strong>
+              <h2>Cast:-</h2>
             </div>
             <div>
               <%= render partial: 'actors', locals: { movie_actors: @movie.actors } %>
@@ -65,21 +65,35 @@
             <div class='col-md-10'>
 
               <div class='movie-info'>
-                <strong>Description:-</strong>
+                <h2>Description:-</h2>
                 <%= raw @movie.description %>
               </div>
 
+              <% if @movie.trailer.present? %>
+                <div>
+                  <h2>Trailer:</h2>
+                </div>
+                <div class='embed-responsive embed-responsive-16by9'>
+                  <%= raw @movie.trailer %>
+                </div>
+              <% end %>
+
               <div>
-                <strong>Trailer:</strong>
-              </div>
-              <div class='iframe-div'>
-                <%= raw @movie.trailer %>
+                <h2>Movie Rating:</h2>
+                <div class='avg-star-rating' data-score='<%= @average_rating %>'></div>
               </div>
 
               <% if user_signed_in? %>
                 <div>
-                  <h2>Add Review</h2>
-                  <%= render partial: 'reviews/form', locals: { remote_form: true }%>
+                  <h2>Rate This Movie:</h2>
+                  <div class='star-rating' data-score='<%= @rating_score %>'></div>
+                </div>
+              <% end %>
+
+              <% if user_signed_in? %>
+                <div>
+                  <h2>Add Review:</h2>
+                  <%= render partial: 'reviews/form', locals: { remote_form: true } %>
                 </div>
               <% end %>
 
@@ -88,18 +102,6 @@
                 <div id='reviews-container'>
                   <%= render @reviews %>
                 </div>
-              </div>
-
-              <% if user_signed_in? %>
-                <div>
-                  <h2>Add Rating:</h2>
-                  <div class='star-rating' data-score=<%= @rating_score %>></div>
-                </div>
-              <% end %>
-
-              <div>
-                <h2>Rating:</h2>
-                <div class='avg-star-rating' data-score=<%= @average_rating %> ></div>
               </div>
 
             </div>

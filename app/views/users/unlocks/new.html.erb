@@ -14,7 +14,7 @@
             <div class='field'>
               <%= f.label :email %>
               <div class='clearfix'></div>
-              <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: 'Enter Email Address' %>
+              <%= f.email_field :email, pattern: get_email_pattern, autofocus: true, class: 'form-control', placeholder: 'Enter Email Address' %>
             </div>
           </div>
 

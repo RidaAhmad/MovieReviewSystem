@@ -12,7 +12,7 @@
             <div class='field' >
               <%= f.label :email %>
               <div class='clearfix'></div>
-              <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: 'Enter Email Address' %>
+              <%= f.email_field :email, pattern: get_email_pattern, autofocus: true, class: 'form-control', placeholder: 'Enter Email Address', required: true %>
             </div>
           </div>
 
@@ -20,7 +20,7 @@
             <div class='field'>
               <%= f.label :password %>
               <div class='clearfix'></div>
-              <%= f.password_field :password, autocomplete: 'off', class: 'form-control', placeholder: 'Enter Password' %>
+              <%= f.password_field :password, autocomplete: 'off', class: 'form-control', placeholder: 'Enter Password', required: true %>
             </div>
           </div>
 

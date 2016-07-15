@@ -1,0 +1,5 @@
+<% if picture.present? %>
+  <%= image_tag(picture.image.url(:medium), class: 'img-responsive') %>
+<% else %>
+  <%= image_tag('missing.png', size: '250x250', alt: 'Profile Picture Unavailable', class: 'img-responsive') %>
+<% end %>

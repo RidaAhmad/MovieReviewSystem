@@ -18,12 +18,15 @@ class Movie < ActiveRecord::Base
   scope :approved, -> { where(approved: true) }
   scope :featured, -> { where(approved: true, featured: true) }
   scope :latest, -> { where(approved: true).order(release_date: :desc) }
+  scope :top, -> { eager_load(:ratings).where('movies.approved = true').select('avg(ratings.score)').group('movies.id').order('avg(ratings.score) desc') }
 
   def self.retrieve_movies(movie_filter)
     if movie_filter == 'featured'
       self.featured
     elsif movie_filter == 'latest'
       self.latest
+    elsif movie_filter == 'top'
+      self.top
     else
       self.approved
     end

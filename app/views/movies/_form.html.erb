@@ -55,7 +55,7 @@
           <div class='form-group'>
           <p><strong>Select Genre</strong></p>
             <div class='field'>
-              <%= f.select :genre, options_for_select(Movie::GENRES.map { |genre| [genre.titleize, genre] }), { include_blank: 'Select One' }, required: true %>
+              <%= f.select :genre, options_for_select(Movie::GENRES.map { |genre| [genre.titleize, genre] }, @selected_genre), { include_blank: 'Select One' }, required: true %>
             </div>
           </div>
 

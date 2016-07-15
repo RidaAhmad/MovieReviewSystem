@@ -46,6 +46,7 @@ class MoviesController < ApplicationController
   # GET /movies/1/edit
   def edit
     @selected_movie_actors = @movie.actors.pluck(:id)
+    @selected_genre = @movie.genre
   end
 
   # POST /movies

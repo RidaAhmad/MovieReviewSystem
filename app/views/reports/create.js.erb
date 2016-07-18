@@ -3,3 +3,5 @@
 <% else %>
   alert('Already Reported!')
 <% end %>
+$('#review-id-<%= @review.id %> .report-action').html('');
+$('#review-id-<%= @review.id %> .report-action').append('<div><i>Review Already Reported!</i></div>');

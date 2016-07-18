@@ -1,0 +1,12 @@
+<% movies.each do |movie| %>
+  <div class='margin-padded-space'>
+    <%= link_to title_titleize(movie.title), movie %>
+  </div>
+  <div class='movie-info'>
+    <% if movie.attachments.present? %>
+      <%= link_to(image_tag(movie.attachments.first.image.url(:thumb), class: 'img-responsive'), movie) %>
+    <% else %>
+      <%= image_tag('shared/poster-not-available.png', size: '100x100', alt: 'Movie Poster Unavailable', class: 'img-responsive') %>
+    <% end %>
+  </div>
+<% end %>

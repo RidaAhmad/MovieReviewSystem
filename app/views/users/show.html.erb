@@ -3,20 +3,37 @@
     <div class='user-details'>
       <div class='col-md-12'>
         <div class='col-md-offset-1'></div>
-        <div class='user-profile'>
-
-          <div class='user-name'>
-            <div class='text-center'>
-              <h1><%= title_titleize(@user.email) %></h1>
+        <div class='row'>
+          <div class='col-md-12 col-sm-10 col-xs-8 user-profile'>
+            <div class='user-name'>
+              <div class='text-center'>
+                <h2><%= title_titleize(@user.email) %></h2>
+              </div>
             </div>
           </div>
+        </div>
+        <div class='row'>
+          <div class='col-md-12 user-profile'>
+            <div class='col-md-6'>
+              <%= render partial: 'profile_picture', locals: { picture: @user.attachment } %>
+            </div>
 
-          <div>
-            <%= render partial: 'profile_picture', locals: { picture: @user.attachment } %>
+            <div class='col-md-6 margin-padded-space'>
+              <div class='margin-padded-space'><strong>Favorite Movies:-</strong></div>
+              <%= render partial: 'favorite_movies', locals: { movies: @user_favorites } %>
+            </div>
           </div>
-
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class='margin-padded-space'>
+    <div class='text-center'>
+      <%= paginate @user_favorites %>
+    </div>
+     <div class='text-center'>
+      <%= page_entries_info @user_favorites %>
     </div>
   </div>
 </div>

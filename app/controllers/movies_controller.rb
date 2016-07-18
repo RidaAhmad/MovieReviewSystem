@@ -15,6 +15,8 @@ class MoviesController < ApplicationController
     @review = @movie.reviews.new
     @reviews = @movie.reviews.page(params[:page])
 
+    @favorite_movie = FavoriteMovie.find_by(user: current_user, movie: @movie)
+
     @rating = @movie.ratings.new
     if @movie.ratings.present?
       @ratings = @movie.ratings

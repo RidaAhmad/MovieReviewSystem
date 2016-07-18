@@ -55,6 +55,7 @@ class MoviesController < ApplicationController
   # POST /movies.json
   def create
     @movie = Movie.new(movie_params)
+    @movie.trailer = ActionController::Base.helpers.sanitize(@movie.trailer, tags: %w(iframe))
 
     respond_to do |format|
       if @movie.save
@@ -70,6 +71,9 @@ class MoviesController < ApplicationController
   # PATCH/PUT /movies/1
   # PATCH/PUT /movies/1.json
   def update
+    @movie_params = params[:movie]
+    @movie_params[:trailer] = ActionController::Base.helpers.sanitize(@movie_params[:trailer], tags: %w(iframe))
+    params[:movie] = @movie_params
     respond_to do |format|
       if @movie.update(movie_params)
         format.html { redirect_to @movie, notice: 'Movie was successfully updated.' }

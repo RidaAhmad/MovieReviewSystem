@@ -25,8 +25,11 @@ class MoviesController < ApplicationController
       if user_signed_in?
         movie_ratings = @movie.ratings.get_ratings(current_user.id)
         if movie_ratings.present?
-          @rating = movie_ratings.first
+          @rating = movie_ratings.last
+          @already_rated = 1
           @rating_score = @rating.score
+        else
+          @already_rated = 0
         end
       end
     else

@@ -19,8 +19,9 @@ $(document).on 'page:change', ->
       user_id = $('#user_id').val()
       movie_id = $('#movie_id').val()
       id = $('#rating_id').val()
+      already_rated = $('#already_rated').val();
 
-      if id == ''
+      if already_rated == '0'
         $.ajax
           type: 'POST'
           url: '/movies/' + movie_id + '/ratings'
@@ -31,6 +32,8 @@ $(document).on 'page:change', ->
           dataType: 'json'
           success: (data) ->
             $('.avg-star-rating').raty 'set', score: data.average
+            $('#already_rated').val(1);
+            $('#rating_id').val(data.rated);
       else
         $.ajax
           type: 'PATCH'

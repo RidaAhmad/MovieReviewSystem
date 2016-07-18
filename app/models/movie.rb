@@ -7,6 +7,7 @@ class Movie < ActiveRecord::Base
   validates :title, presence: true, length: { maximum: 150 }
   validates :genre, presence: true, length: { maximum: 30 }, inclusion: { in: GENRES }
   validates :trailer, length: { maximum: 255 }
+  validates :release_date, presence: true
 
   has_many :attachments, as: :attachable, dependent: :destroy
   accepts_nested_attributes_for :attachments, allow_destroy: :true, reject_if: proc { |attributes| attributes['image'].blank? }

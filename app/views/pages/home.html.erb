@@ -1,73 +1,85 @@
 <div class='container'>
 
-  <div class='margin-padded-space'>
-    <div class='text-center'>
-      <div class='movie-name'>
-        <strong>Featured Movies</strong>
-      </div>
-    </div>
-  </div>
-
-  <div class='row'>
-    <div class='col-md-12 offset-2'>
-      <div>
-        <%= render partial: 'movies', locals: { movies: @featured_movies } %>
-      </div>
-    </div>
-  </div>
-
-  <div class='margin-padded-space'></div>
-  <div class='text-center' align='center'>
-    <%= link_to 'View All', movies_path(filter: 'featured'), class: 'btn btn-sm btn-info' %>
-  </div>
-
-  <hr/>
-
-  <div class='margin-padded-space'>
-    <div class='text-center'>
-      <div class='movie-name'>
-        <strong>Latest Movies</strong>
-      </div>
-    </div>
-  </div>
-
-  <div class='row'>
-    <div class='col-md-12 offset-2'>
-      <div>
-        <%= render partial: 'movies', locals: { movies: @latest_movies } %>
+  <% if @featured_movies.present? || @latest_movies.present? || @top_movies.present? %>
+    <% if @featured_movies.present? %>
+      <div class='margin-padded-space'>
+        <div class='text-center'>
+          <div class='movie-name'>
+            <strong>Featured Movies</strong>
+          </div>
+        </div>
       </div>
 
-    </div>
-  </div>
-
-  <div class='margin-padded-space'></div>
-  <div class='text-center' align='center'>
-    <%= link_to 'View All', movies_path(filter: 'latest'), class: 'btn btn-sm btn-info' %>
-  </div>
-
-  <hr/>
-
-  <div class='margin-padded-space'>
-    <div class='text-center'>
-      <div class='movie-name'>
-        <strong>Top Movies</strong>
+      <div class='row'>
+        <div class='col-md-12 offset-2'>
+          <div>
+            <%= render partial: 'movies', locals: { movies: @featured_movies } %>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class='row'>
-    <div class='col-md-12 offset-2'>
-      <div>
-        <%= render partial: 'movies', locals: { movies: @top_movies } %>
+      <div class='margin-padded-space'></div>
+      <div class='text-center' align='center'>
+        <%= link_to 'View All', movies_path(filter: 'featured'), class: 'btn btn-sm btn-info' %>
       </div>
+
+      <hr/>
+    <% end %>
+
+    <% if @latest_movies.present? %>
+      <div class='margin-padded-space'>
+        <div class='text-center'>
+          <div class='movie-name'>
+            <strong>Latest Movies</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class='row'>
+        <div class='col-md-12 offset-2'>
+          <div>
+            <%= render partial: 'movies', locals: { movies: @latest_movies } %>
+          </div>
+
+        </div>
+      </div>
+
+      <div class='margin-padded-space'></div>
+      <div class='text-center' align='center'>
+        <%= link_to 'View All', movies_path(filter: 'latest'), class: 'btn btn-sm btn-info' %>
+      </div>
+
+      <hr/>
+    <% end %>
+
+    <% if @top_movies.present? %>
+      <div class='margin-padded-space'>
+        <div class='text-center'>
+          <div class='movie-name'>
+            <strong>Top Movies</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class='row'>
+        <div class='col-md-12 offset-2'>
+          <div>
+            <%= render partial: 'movies', locals: { movies: @top_movies } %>
+          </div>
+        </div>
+      </div>
+
+      <div class='margin-padded-space'></div>
+      <div class='text-center' align='center'>
+        <%= link_to 'View All', movies_path(filter: 'top'), class: 'btn btn-sm btn-info' %>
+      </div>
+
+      <hr/>
+    <% end %>
+  <% else %>
+    <div>
+      No Movie To Show Yet.
     </div>
-  </div>
-
-  <div class='margin-padded-space'></div>
-  <div class='text-center' align='center'>
-    <%= link_to 'View All', movies_path(filter: 'top'), class: 'btn btn-sm btn-info' %>
-  </div>
-
-  <hr/>
+  <% end %>
 
 </div>

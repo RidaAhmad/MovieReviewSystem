@@ -1,32 +1,37 @@
 <div class='container'>
-  <%- model_class = Movie -%>
+  <% if @movies.present? %>
+    <% model_class = Movie %>
 
-  <div class='movie-name'>
-    <h1 class='text-center'><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
-  </div>
+    <div class='movie-name'>
+      <h1 class='text-center'><%= t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+    </div>
 
-  <div class='row'>
-    <div class='col-md-12'>
-      <div class='col-md-offset-3'></div>
+    <div class='row'>
+      <div class='col-md-12'>
+        <div class='col-md-offset-3'></div>
 
-        <div>
-          <%= render partial: 'movies', locals: { movies: @movies } %>
-        </div>
+          <div>
+            <%= render partial: 'movies', locals: { movies: @movies } %>
+          </div>
 
+      </div>
     </div>
   </div>
-</div>
 
-<div class='text pull-right'>
-  <%= link_to 'New Movie', new_movie_path, class: 'btn btn-sm btn-info' %>
-</div>
-
-<div class='margin-padded-space'>
-  <div class='text-center'>
-    <%= paginate @movies %>
+  <div class='text pull-right'>
+    <%= link_to 'New Movie', new_movie_path, class: 'btn btn-sm btn-info' %>
   </div>
 
-  <div class='text-center'>
-    <%= page_entries_info @movies %>
-  </div>
+  <div class='margin-padded-space'>
+    <div class='text-center'>
+      <%= paginate @movies %>
+    </div>
+
+    <div class='text-center'>
+      <%= page_entries_info @movies %>
+    </div>
+
+  <% else %>
+    No Movie To Show Yet.
+  <% end %>
 </div>

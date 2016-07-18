@@ -9,4 +9,6 @@ class User < ActiveRecord::Base
   has_many :reviews, dependent: :destroy
   has_many :ratings, dependent: :destroy
   has_many :reports, dependent: :destroy
+  has_many :favorite_movies, dependent: :destroy
+  has_many :favorites, through: :favorite_movies, source: :movie
 end

@@ -14,6 +14,8 @@ class Movie < ActiveRecord::Base
   has_many :actors, through: :appearances
   has_many :reviews, dependent: :destroy
   has_many :ratings, dependent: :destroy
+  has_many :favorite_movies, dependent: :destroy
+  has_many :favorited_by, through: :favorite_movies, source: :user
 
   scope :approved, -> { where(approved: true) }
   scope :featured, -> { where(approved: true, featured: true) }

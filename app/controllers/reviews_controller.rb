@@ -1,14 +1,16 @@
 class ReviewsController < ApplicationController
   before_action :set_review, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:create, :update, :edit, :destroy]
-  before_filter :set_movie
+  before_action :set_movie
+  before_action :authenticate_owner, only: [:destroy, :edit, :update]
+
 
   def edit
   end
 
   def create
     @review = @movie.reviews.new(review_params)
-    @review.user_id = current_user.id
+    @review.user = current_user
 
     respond_to do |format|
       if @review.save
@@ -48,5 +50,9 @@ class ReviewsController < ApplicationController
 
     def set_movie
       @movie = Movie.find(params[:movie_id])
+    end
+
+    def authenticate_owner
+      redirect_to movies_path, alert: 'Access Denied!' unless current_user == @review.user
     end
 end

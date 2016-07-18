@@ -10,4 +10,8 @@ module PagesHelper
   def get_email_pattern
     return '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$'
   end
+
+  def movies_available?(featured_movies, latest_movies, top_movies)
+    featured_movies.present? || latest_movies.present? || top_movies.present?
+  end
 end

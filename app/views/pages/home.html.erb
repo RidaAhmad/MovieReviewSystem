@@ -1,6 +1,6 @@
 <div class='container'>
 
-  <% if @featured_movies.present? || @latest_movies.present? || @top_movies.present? %>
+  <% if movies_available?(@featured_movies, @latest_movies, @top_movies) %>
     <% if @featured_movies.present? %>
       <div class='margin-padded-space'>
         <div class='text-center'>

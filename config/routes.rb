@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :movies do
     resources :reviews
     resources :ratings
+    post :search, on: :collection
   end
 
   resources :movies, only: [] do

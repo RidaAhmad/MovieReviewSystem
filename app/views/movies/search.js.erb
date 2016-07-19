@@ -1,0 +1,9 @@
+<% if @search_results.present? %>
+  alert('Results found!');
+  $('.movies-display').html("<div><%= escape_javascript (render partial: 'movies', locals: { movies: @search_results }) %></div>");
+  $('.movies-pagination').html('');
+<% else %>
+  alert('No results found!');
+  $('.movies-display').html('<div>No Results Found!</div>');
+  $('.movies-pagination').html('');
+<% end %>

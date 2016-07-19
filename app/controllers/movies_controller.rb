@@ -7,6 +7,7 @@ class MoviesController < ApplicationController
   # GET /movies.json
   def index
     @movies = Movie.retrieve_movies(params[:filter]).page(params[:page])
+    @all_actors = Actor.actor_names
   end
 
   # GET /movies/1
@@ -95,6 +96,14 @@ class MoviesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to movies_url, notice: 'Movie was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def search
+    @parameters = params
+    @search_results = Movie.search_movies(@parameters)
+    respond_to do |format|
+      format.js
     end
   end
 

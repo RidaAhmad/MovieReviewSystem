@@ -73,4 +73,20 @@ class Movie < ActiveRecord::Base
 
     self.search(query, with: search_with, order: search_order, page: search_pages, per_page: search_per_page)
   end
+
+  def detailed_hash
+    {
+      details: self,
+      actors: actors,
+      reviews: reviews,
+    }
+  end
+
+  def self.all_details_hash(movies)
+    result = []
+    movies.each do |movie|
+      result << movie.detailed_hash
+    end
+    return result
+  end
 end

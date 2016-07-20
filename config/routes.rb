@@ -71,4 +71,9 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  namespace :api, defaults: { format: 'json' } do
+    namespace :v1 do
+      resources :movies, only: [:index, :show]
+    end
+  end
 end

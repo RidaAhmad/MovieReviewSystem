@@ -41,12 +41,29 @@ class Movie < ActiveRecord::Base
     ratings.present? ? ratings.average(:score) : 0
   end
 
+  def self.retrieve_search_results(parameters)
+    parameters[:commit] == 'Search' ? search_movies(parameters) : advance_search(parameters)
+  end
+
   def self.search_movies(parameters)
     search_conditions = {}
     search_conditions[:title] = parameters[:title] unless parameters[:title].nil?
     search_conditions[:genre] = parameters[:genre] unless parameters[:genre].nil?
     search_conditions[:actor_name] = parameters[:actor] unless parameters[:actor].nil?
-    search_conditions[:release_date] = parameters[:release_date] unless parameters[:release_date].nil?
+    order = 'updated_at desc'
+    per_page_movies = 12
+    search_with = {}
+    search_with[:approved] = true
+    search_with[:release_date] = (Date.parse(parameters[:release_date_start])..Date.parse(parameters[:release_date_end])) if (parameters[:release_date_start].present? && parameters[:release_date_end]).present?
+    search_order = order
+    search_pages = parameters[:page]
+    search_per_page = per_page_movies
+
+    self.search(conditions: search_conditions, with: search_with, order: search_order, page: search_pages, per_page: search_per_page)
+  end
+
+  def self.advance_search(parameters)
+    query = parameters[:query] unless parameters[:query].nil?
     order = 'updated_at desc'
     per_page_movies = 12
     search_with = { approved: true }
@@ -54,6 +71,6 @@ class Movie < ActiveRecord::Base
     search_pages = parameters[:page]
     search_per_page = per_page_movies
 
-    self.search(conditions: search_conditions, with: search_with, order: search_order, page: search_pages, per_page: search_per_page)
+    self.search(query, with: search_with, order: search_order, page: search_pages, per_page: search_per_page)
   end
 end

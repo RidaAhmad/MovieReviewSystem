@@ -6,7 +6,7 @@ class MoviesController < ApplicationController
   # GET /movies
   # GET /movies.json
   def index
-    @movies = Movie.retrieve_movies(params[:filter]).page(params[:page])
+    @movies = params[:commit].present? ? Movie.retrieve_search_results(params) : Movie.retrieve_movies(params[:filter]).page(params[:page])
     @all_actors = Actor.actor_names
   end
 
@@ -100,8 +100,7 @@ class MoviesController < ApplicationController
   end
 
   def search
-    @parameters = params
-    @search_results = Movie.search_movies(@parameters)
+    @search_results = Movie.search_movies(params)
     respond_to do |format|
       format.js
     end

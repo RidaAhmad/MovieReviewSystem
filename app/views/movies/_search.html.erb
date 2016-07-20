@@ -1,5 +1,5 @@
 <div class='form-search'>
-  <%= form_tag '/movies/search', method: 'post', remote: true, class: 'form-inline' do %>
+  <%= form_tag '/movies', method: 'get', class: 'form-inline' do %>
     <div class='form-group'>
       <div class='field'>
         <%= label_tag :title %>
@@ -10,9 +10,17 @@
 
     <div class='form-group'>
       <div class='field'>
-        <%= label_tag :release_date, 'Release Year' %>
+        <%= label_tag :release_date_start, 'Release Date Start' %>
         <div class='clearfix'></div>
-        <%= number_field_tag :release_date, nil, size: 4, maxlength: 4, class: 'form-control' %>
+        <%= date_field_tag :release_date_start, nil, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <div class='field'>
+        <%= label_tag :release_date_end, 'Release Date End' %>
+        <div class='clearfix'></div>
+        <%= date_field_tag :release_date_end, nil, class: 'form-control' %>
       </div>
     </div>
 
@@ -34,7 +42,7 @@
 
     <div class='form-group margin-padded-space'>
         <span class='glyphicon glyphicon-search'></span>
-        <%= submit_tag 'Search', class: 'btn btn-info btn-mini' %>
+        <%= submit_tag 'Search', class: 'btn btn-lg btn-primary' %>
     </div>
   <% end %>
 </div>

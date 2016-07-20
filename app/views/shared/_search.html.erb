@@ -1,0 +1,16 @@
+<div class='form-search-header'>
+  <%= form_tag '/movies', method: 'get', class: 'form-inline' do %>
+    <div class='form-group'>
+      <div class='field'>
+        <%= label_tag :query %>
+        <div class='clearfix'></div>
+        <%= text_field_tag :query, nil, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class='form-group margin-padded-space'>
+        <span class='glyphicon glyphicon-search'></span>
+        <%= submit_tag 'Advance Search', class: 'btn btn-lg btn-primary' %>
+    </div>
+  <% end %>
+</div>

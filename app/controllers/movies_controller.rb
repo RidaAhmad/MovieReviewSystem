@@ -13,34 +13,38 @@ class MoviesController < ApplicationController
   # GET /movies/1
   # GET /movies/1.json
   def show
-    @review = @movie.reviews.new
-    @reviews = @movie.reviews.page(params[:page])
+    if @movie.approved == true
+      @review = @movie.reviews.new
+      @reviews = @movie.reviews.page(params[:page])
 
-    @favorite_movie = FavoriteMovie.find_by(user: current_user, movie: @movie)
+      @favorite_movie = FavoriteMovie.find_by(user: current_user, movie: @movie)
 
-    @rating = @movie.ratings.new
-    if @movie.ratings.present?
-      @ratings = @movie.ratings
-      @average_rating = @movie.get_average_rating
+      @rating = @movie.ratings.new
+      if @movie.ratings.present?
+        @ratings = @movie.ratings
+        @average_rating = @movie.get_average_rating
 
-      if user_signed_in?
-        movie_ratings = @movie.ratings.get_ratings(current_user.id)
-        if movie_ratings.present?
-          @rating = movie_ratings.last
-          @already_rated = 1
-          @rating_score = @rating.score
-        else
-          @already_rated = 0
+        if user_signed_in?
+          movie_ratings = @movie.ratings.get_ratings(current_user.id)
+          if movie_ratings.present?
+            @rating = movie_ratings.last
+            @already_rated = 1
+            @rating_score = @rating.score
+          else
+            @already_rated = 0
+          end
         end
+      else
+        @rating_score ||= 0
+        @average_rating = 0
+      end
+
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @movie }
       end
     else
-      @rating_score ||= 0
-      @average_rating = 0
-    end
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @movie }
+      redirect_to movies_path
     end
   end
 

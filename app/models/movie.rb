@@ -85,11 +85,4 @@ class Movie < ActiveRecord::Base
     }
   end
 
-  def self.all_details_hash(movies)
-    result = []
-    movies.each do |movie|
-      result << movie.detailed_hash
-    end
-    return result
-  end
 end

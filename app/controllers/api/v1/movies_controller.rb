@@ -9,8 +9,7 @@ class Api::V1::MoviesController < Api::V1::BaseController
 
   def index
     @movies = Movie.search_movies(params)
-    @search_result = Movie.all_details_hash(@movies)
 
-    respond_with Kaminari.paginate_array(@search_result)
+    respond_with @movies
   end
 end

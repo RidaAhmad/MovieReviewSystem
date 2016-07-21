@@ -54,7 +54,10 @@ class Movie < ActiveRecord::Base
     per_page_movies = 12
     search_with = {}
     search_with[:approved] = true
-    search_with[:release_date] = (Date.parse(parameters[:release_date_start])..Date.parse(parameters[:release_date_end])) if (parameters[:release_date_start].present? && parameters[:release_date_end]).present?
+    if parameters[:release_date_start].present?
+      end_date = parameters[:release_date_end].present? ? Date.parse(parameters[:release_date_end]) : Date.today
+      search_with[:release_date] = (Date.parse(parameters[:release_date_start])..end_date)
+    end
     search_order = order
     search_pages = parameters[:page]
     search_per_page = per_page_movies

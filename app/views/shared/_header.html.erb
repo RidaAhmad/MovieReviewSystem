@@ -1,26 +1,33 @@
 <div class='page-header header-content'>
-  <div class='header-div'>
-
-    <div class='navbar navbar-inverse margin-padded-space' role='navigation'>
-      <div class='navbar-text pull-left'>
-        <span class='glyphicon glyphicon-home'></span>
-        <%= link_to 'Home', root_path, class: 'navbar-link' %> |
-        <%= link_to 'New Movie', new_movie_path, class: 'navbar-link' %> |
-        <span class='glyphicon glyphicon-search'></span>
-        <%= link_to 'Movies', movies_path, class: 'navbar-link' %>
+  <nav class='navbar navbar-inverse' role='navigation'>
+    <div class='row'>
+      <div class='navbar-header col-md-3'>
+        <%= render 'shared/search' %>
+        <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-menubuilder'>
+        <span class='sr-only'>Toggle navigation</span>
+        <span class='icon-bar'></span>
+        <span class='icon-bar'></span>
+        <span class='icon-bar'></span>
       </div>
-
-      <div class='navbar-text pull-right'>
-        <% if user_signed_in? %>
-          <strong><%= link_to current_user.email, current_user %></strong> |
-          <%= link_to 'Edit profile', edit_user_registration_path, class: 'navbar-link' %> |
-          <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'navbar-link' %>
-        <% else %>
-          <%= link_to 'Login', new_user_session_path, class: 'navbar-link' %> |
-          <%= link_to 'Sign up', new_user_registration_path, class: 'navbar-link' %>
-        <% end %>
+      <div class='col-md-9'>
+        <div class='collapse navbar-collapse navbar-menubuilder'>
+          <ul class='nav navbar-nav pull-right'>
+            <li><%= link_to 'Home', root_path, class: 'navbar-link' %></li>
+            <li><%= link_to 'Movies', movies_path, class: 'navbar-link' %></li>
+            <% if user_signed_in? %>
+              <li><%= link_to 'New Movie', new_movie_path, class: 'navbar-link' %></li>
+              <li><%= link_to current_user.email, current_user %></li>
+              <li><%= link_to 'Edit profile', edit_user_registration_path, class: 'navbar-link' %></li>
+              <li><%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'navbar-link' %></li>
+            <% else %>
+              <li><%= link_to 'Login', new_user_session_path, class: 'navbar-link' %></li>
+              <li><%= link_to 'Sign up', new_user_registration_path, class: 'navbar-link' %></li>
+            <% end %>
+          </ul>
+        </div>
       </div>
     </div>
+  </nav>
 
     <div align='center'>
       <span id='site-title'>
@@ -31,11 +38,6 @@
 
     <div class='margin-padded-space'></div>
 
-    <div class='advance-search'>
-      <%= render 'shared/search' %>
-    </div>
-
-  </div>
 </div>
 
 <div class='flash-msg'>

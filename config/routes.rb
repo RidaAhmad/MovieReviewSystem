@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   resources :movies do
-    resources :reviews
+    resources :reviews, only: [:create, :update, :edit, :destroy]
     resources :ratings
     post :search, on: :collection
   end

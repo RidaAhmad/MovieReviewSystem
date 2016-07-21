@@ -111,12 +111,14 @@
                 </div>
               <% end %>
 
-              <div>
-                <h2>Reviews:</h2>
-                <div id='reviews-container'>
-                  <%= render @reviews %>
+              <% if @reviews.present? %>
+                <div>
+                  <h2>Reviews:</h2>
+                  <div id='reviews-container'>
+                    <%= render @reviews %>
+                  </div>
                 </div>
-              </div>
+              <% end %>
 
             </div>
           </div>

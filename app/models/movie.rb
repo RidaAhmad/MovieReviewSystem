@@ -1,6 +1,6 @@
 class Movie < ActiveRecord::Base
-
-  paginates_per 12
+  SPHINX_PER_PAGE = 12
+  paginates_per SPHINX_PER_PAGE
 
   GENRES = ['horror', 'comedy', 'action', 'crime', 'drama', 'thriller', 'fantasy', 'animation']
 
@@ -51,7 +51,7 @@ class Movie < ActiveRecord::Base
     search_conditions[:genre] = parameters[:genre] unless parameters[:genre].nil?
     search_conditions[:actor_name] = parameters[:actor] unless parameters[:actor].nil?
     order = 'updated_at desc'
-    per_page_movies = 12
+    per_page_movies = SPHINX_PER_PAGE
     search_with = {}
     search_with[:approved] = true
     if parameters[:release_date_start].present?
@@ -68,7 +68,7 @@ class Movie < ActiveRecord::Base
   def self.advance_search(parameters)
     query = parameters[:query] unless parameters[:query].nil?
     order = 'updated_at desc'
-    per_page_movies = 12
+    per_page_movies = SPHINX_PER_PAGE
     search_with = { approved: true }
     search_order = order
     search_pages = parameters[:page]

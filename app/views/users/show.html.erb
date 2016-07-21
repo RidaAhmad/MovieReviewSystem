@@ -18,10 +18,12 @@
               <%= render partial: 'profile_picture', locals: { picture: @user.attachment } %>
             </div>
 
-            <div class='col-md-8 margin-padded-space'>
-              <div class='margin-padded-space text-center'><h2>Favorite Movies</h2></div>
-              <%= render partial: 'favorite_movies', locals: { movies: @user_favorites } %>
-            </div>
+            <% if @user_favorites.present? %>
+              <div class='col-md-8 margin-padded-space'>
+                <div class='margin-padded-space text-center'><h2>Favorite Movies</h2></div>
+                <%= render partial: 'favorite_movies', locals: { movies: @user_favorites } %>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>

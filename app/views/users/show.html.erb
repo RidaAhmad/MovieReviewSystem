@@ -14,12 +14,12 @@
         </div>
         <div class='row'>
           <div class='col-md-12 user-profile'>
-            <div class='col-md-6'>
+            <div class='col-md-4'>
               <%= render partial: 'profile_picture', locals: { picture: @user.attachment } %>
             </div>
 
-            <div class='col-md-6 margin-padded-space'>
-              <div class='margin-padded-space'><strong>Favorite Movies:-</strong></div>
+            <div class='col-md-8 margin-padded-space'>
+              <div class='margin-padded-space text-center'><h2>Favorite Movies</h2></div>
               <%= render partial: 'favorite_movies', locals: { movies: @user_favorites } %>
             </div>
           </div>

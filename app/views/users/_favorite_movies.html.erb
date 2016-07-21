@@ -1,12 +1,21 @@
-<% movies.each do |movie| %>
-  <div class='margin-padded-space'>
-    <%= link_to title_titleize(movie.title), movie %>
+<% movies.in_groups_of(3, false).each do |movie_group| %>
+  <div class='row'>
+  <% movie_group.each do |movie| %>
+    <div class='col-md-4 text-center'>
+      <div>
+        <h3><%= link_to title_titleize(movie.title), movie %></h3>
+      </div>
+      <div class='clearfix'></div>
+      <div class='movie-info'>
+        <% if movie.attachments.present? %>
+          <%= link_to(image_tag(movie.attachments.first.image.url(:thumb), class: 'img-thumbnail img-responsive'), movie) %>
+        <% else %>
+          <%= link_to(image_tag('shared/poster-not-available.png', size: '100x100', alt: 'Movie Poster Unavailable', class: 'img-thumbnail img-responsive'), movie) %>
+        <% end %>
+      </div>
+      <div class='clearfix'></div>
+    </div>
+  <% end %>
   </div>
-  <div class='movie-info'>
-    <% if movie.attachments.present? %>
-      <%= link_to(image_tag(movie.attachments.first.image.url(:thumb), class: 'img-responsive'), movie) %>
-    <% else %>
-      <%= image_tag('shared/poster-not-available.png', size: '100x100', alt: 'Movie Poster Unavailable', class: 'img-responsive') %>
-    <% end %>
-  </div>
+  <div class='margin-padded-space'></div>
 <% end %>

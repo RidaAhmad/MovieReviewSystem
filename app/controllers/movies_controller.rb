@@ -122,6 +122,6 @@ class MoviesController < ApplicationController
     end
 
     def select_all_actors
-      @all_movie_actors = Actor.all.pluck(:name, :id)
+      @all_movie_actors = Actor.pluck(:name, :id)
     end
 end

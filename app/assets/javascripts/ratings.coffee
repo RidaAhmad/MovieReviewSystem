@@ -2,6 +2,32 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+createRating = (user_id, movie_id, score) ->
+  $.ajax
+    type: 'POST'
+    url: '/movies/' + movie_id + '/ratings'
+    data: rating:
+      movie_id: movie_id
+      user_id: user_id
+      score: score
+    dataType: 'json'
+    success: (data) ->
+      $('.avg-star-rating').raty 'set', score: data.average
+      $('#already_rated').val(1);
+      $('#rating_id').val(data.rated);
+
+updateRating = (user_id, movie_id, score, id) ->
+  $.ajax
+    type: 'PATCH'
+    url: '/movies/' + movie_id + '/ratings/' + id
+    data: rating:
+      movie_id: movie_id
+      user_id: user_id
+      score: score
+    dataType: 'json'
+    success: (data) ->
+      $('.avg-star-rating').raty 'set', score: data.average
+
 $(document).on 'page:change', ->
   $('.avg-star-rating').raty
     path: '/assets/'
@@ -22,26 +48,6 @@ $(document).on 'page:change', ->
       already_rated = $('#already_rated').val();
 
       if already_rated == '0'
-        $.ajax
-          type: 'POST'
-          url: '/movies/' + movie_id + '/ratings'
-          data: rating:
-            movie_id: movie_id
-            user_id: user_id
-            score: score
-          dataType: 'json'
-          success: (data) ->
-            $('.avg-star-rating').raty 'set', score: data.average
-            $('#already_rated').val(1);
-            $('#rating_id').val(data.rated);
+        createRating(user_id, movie_id, score)
       else
-        $.ajax
-          type: 'PATCH'
-          url: '/movies/' + movie_id + '/ratings/' + id
-          data: rating:
-            movie_id: movie_id
-            user_id: user_id
-            score: score
-          dataType: 'json'
-          success: (data) ->
-            $('.avg-star-rating').raty 'set', score: data.average
+        updateRating(user_id, movie_id, score, id)

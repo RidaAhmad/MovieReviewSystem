@@ -1,11 +1,14 @@
 <div class='container'>
+  <div class='text-center home-heading'>
+    <h1>Welcome to Movie Review System!</h1>
+  </div>
 
   <% if movies_available?(@featured_movies, @latest_movies, @top_movies) %>
     <% if @featured_movies.present? %>
       <div class='margin-padded-space'>
         <div class='text-center'>
           <div class='movie-name'>
-            <strong>Featured Movies</strong>
+            <h2>Featured Movies</h2>
           </div>
         </div>
       </div>
@@ -30,7 +33,7 @@
       <div class='margin-padded-space'>
         <div class='text-center'>
           <div class='movie-name'>
-            <strong>Latest Movies</strong>
+            <h2>Latest Movies</h2>
           </div>
         </div>
       </div>
@@ -56,7 +59,7 @@
       <div class='margin-padded-space'>
         <div class='text-center'>
           <div class='movie-name'>
-            <strong>Top Movies</strong>
+            <h2>Top Movies</h2>
           </div>
         </div>
       </div>

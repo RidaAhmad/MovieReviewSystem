@@ -3,127 +3,121 @@
     <div class='movie-details'>
       <div class='col-md-12'>
         <div class='col-md-offset-1'></div>
-        <div class='show-movie'>
-
-          <div class='movie-name'>
-            <div class='text-center'>
-              <h1><%= title_titleize(@movie.title) %></h1>
-            </div>
-          </div>
-
-          <div class='clearfix'></div>
-          <div class='col-md-5'>
-
-            <div class='margin-padded-space'>
-              <%= render partial: 'poster', locals: { poster: @movie.attachments.first } %>
-            </div>
-
-            <div>
-              <%= render partial: 'posters', locals: { posters: @movie.attachments } %>
-            </div>
-
-          </div>
-
-          <div class='col-md-5'>
-
-            <div class='movie-info'>
-              <h2>Title:</h2>
-              <%= title_titleize(@movie.title) %>
-            </div>
-
-            <div class='movie-info'>
-              <h2>Genre:</h2>
-              <%= @movie.genre.titleize %>
-            </div>
-
-            <% if @movie.duration.present? %>
-              <div class='movie-info'>
-                <h2>Duration:</h2>
-                <%= @movie.duration %> minutes
+        <div class='row'>
+          <div class='show-movie'>
+            <div class='movie-name'>
+              <div class='text-center'>
+                <h1><%= title_titleize(@movie.title) %></h1>
               </div>
-            <% end %>
-
-            <div class='movie-info'>
-              <h2>Release Date:</h2>
-              <%= @movie.release_date %>
             </div>
 
-            <% if @movie.actors.present? %>
-              <div class='movie-info'>
-                <h2>Cast:-</h2>
+            <div class='clearfix'></div>
+            <div class='col-md-5'>
+              <div class='margin-padded-space'>
+                <%= render partial: 'poster', locals: { poster: @movie.attachments.first } %>
               </div>
+
               <div>
-                <%= render partial: 'actors', locals: { movie_actors: @movie.actors } %>
+                <%= render partial: 'posters', locals: { posters: @movie.attachments } %>
               </div>
-            <% end %>
+            </div>
+
+            <div class='col-md-5'>
+              <div class='movie-info'>
+                <div class='movie-info-heading'>Title:</div>
+                <h2><%= title_titleize(@movie.title) %></h2>
+              </div>
+
+              <div class='movie-info'>
+                <div class='movie-info-heading'>Genre:</div>
+                <h2><%= @movie.genre.titleize %></h2>
+              </div>
+
+              <% if @movie.duration.present? %>
+                <div class='movie-info'>
+                  <div class='movie-info-heading'>Duration:</div>
+                  <h2><%= @movie.duration %> minutes</h2>
+                </div>
+              <% end %>
+
+              <div class='movie-info'>
+                <div class='movie-info-heading'>Release Date:</div>
+                <h2><%= @movie.release_date %><h2>
+              </div>
+
+              <% if @movie.actors.present? %>
+                <div class='movie-info'>
+                  <div class='movie-info-heading'>Cast:-</div>
+                </div>
+                <div>
+                  <%= render partial: 'actors', locals: { movie_actors: @movie.actors } %>
+                </div>
+              <% end %>
+            </div>
 
           </div>
-
         </div>
       </div>
 
       <div class='col-md-12'>
         <div class='col-md-offset-1'></div>
-          <div class='show-movie'>
-            <div class='col-md-10'>
+        <div class='row'>
+        <div class='show-movie'>
+          <div class='col-md-10'>
+            <% if @movie.description.present? %>
+              <div class='movie-info'>
+                <div class='movie-info-heading'>Description:-</div>
+                <%= raw @movie.description %>
+              </div>
+            <% end %>
 
-
-              <% if @movie.description.present? %>
-                <div class='movie-info'>
-                  <h2>Description:-</h2>
-                  <%= raw @movie.description %>
-                </div>
-              <% end %>
-
-              <% if @movie.trailer.present? %>
-                <div>
-                  <h2>Trailer:</h2>
-                </div>
-                <div class='embed-responsive embed-responsive-16by9'>
-                  <%= raw @movie.trailer %>
-                </div>
-              <% end %>
-
+            <% if @movie.trailer.present? %>
               <div>
-                <h2>Movie Rating:</h2>
-                <div class='avg-star-rating' data-score='<%= @movie.get_average_rating %>'></div>
+                <div class='movie-info-heading'>Trailer:</div>
+              </div>
+              <div class='embed-responsive embed-responsive-16by9'>
+                <%= raw @movie.trailer %>
+              </div>
+            <% end %>
+
+            <div class='margin-padded-space'>
+              <div class='movie-info-heading'>Movie Rating:</div>
+              <div class='avg-star-rating' data-score='<%= @movie.get_average_rating %>'></div>
+            </div>
+
+            <% if user_signed_in? %>
+              <div class='margin-padded-space'>
+                <div class='movie-info-heading'>Rate This Movie:</div>
+                <div class='star-rating' data-score='<%= @rating.try(:score).to_i %>'></div>
               </div>
 
-              <% if user_signed_in? %>
+              <div class='favorite-action'>
                 <div class='margin-padded-space'>
-                  <h2>Rate This Movie:</h2>
-                  <div class='star-rating' data-score='<%= @rating.try(:score).to_i %>'></div>
+                  <% if @favorite_movie.present? %>
+                    <%= link_to 'Mark As Unfavorite', movie_favorite_movie_path(@movie, @favorite_movie), method: :delete, class: 'btn btn-mini btn-danger' %>
+                  <% else %>
+                    <%= link_to 'Mark As Favorite', movie_favorite_movies_path(@movie), method: :post, class: 'btn btn-mini btn-info' %>
+                  <% end %>
                 </div>
+              </div>
 
-                <div class='favorite-action'>
-                  <div class='margin-padded-space'>
-                    <% if @favorite_movie.present? %>
-                      <%= link_to 'Mark As Unfavorite', movie_favorite_movie_path(@movie, @favorite_movie), method: :delete, class: 'btn btn-mini btn-danger' %>
-                    <% else %>
-                      <%= link_to 'Mark As Favorite', movie_favorite_movies_path(@movie), method: :post, class: 'btn btn-mini btn-info' %>
-                    <% end %>
-                  </div>
+              <div class='margin-padded-space'>
+                <div class='movie-info-heading'>Add Review:</div>
+                <%= render partial: 'reviews/form', locals: { remote_form: true } %>
+              </div>
+            <% end %>
+
+            <% if @reviews.present? %>
+              <div>
+                <div class='movie-info-heading'>Reviews:</div>
+                <div id='reviews-container'>
+                  <%= render @reviews %>
                 </div>
-
-                <div class='margin-padded-space'>
-                  <h2>Add Review:</h2>
-                  <%= render partial: 'reviews/form', locals: { remote_form: true } %>
-                </div>
-              <% end %>
-
-              <% if @reviews.present? %>
-                <div>
-                  <h2>Reviews:</h2>
-                  <div id='reviews-container'>
-                    <%= render @reviews %>
-                  </div>
-                </div>
-              <% end %>
-
-            </div>
+              </div>
+            <% end %>
           </div>
         </div>
-
+      </div>
     </div>
 
     <div class='margin-padded-space'>
@@ -135,7 +129,6 @@
         <%= page_entries_info @reviews %>
       </div>
     </div>
-
   </div>
 
   <div class='row'>

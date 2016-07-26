@@ -97,12 +97,13 @@ iframe {
 }
 
 h1 {
-  font-weight: 800;
+  font-weight: bold;
+  font-size: 26px;
 }
 
 h2 {
-  font-weight: 600;
-  font-size: 22px;
+  font-weight: bold;
+  font-size: 24px;
 }
 
 .movie-show {
@@ -129,13 +130,13 @@ h2 {
 }
 
 .form-search {
-  max-width: 1050px;
+  max-width: 1095px;
   padding: 15px;
   margin: 0 auto;
 }
 
 h3 {
-  font-weight: 400;
+  font-weight: normal;
   font-size: 20px;
 }
 
@@ -152,4 +153,52 @@ h3 {
   max-width: 425px;
   padding: 10px;
   margin: 0 auto;
+}
+
+.movie-info-heading {
+  font-weight: bold;
+  font-size: 22px;
+  padding-top: 6px;
+}
+
+.movie-info h2 {
+  margin-top: 2px;
+  padding: 1px;
+  font-weight: normal;
+  font-size: 22px;
+}
+
+.home-heading {
+  margin-bottom: 15px;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-y: auto;
+}
+
+#content {
+  min-height: 100%;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+#header {
+  padding-bottom: 1px;
+}
+
+#footer {
+  position:absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  padding-top: 40px;
+}
+
+.footer {
+  background-color: #336699;
 }

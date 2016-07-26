@@ -9,17 +9,21 @@
 </head>
 <body>
 
-  <%= render 'shared/header' %>
-
-  <div class='clearfix'></div>
-  <div class='clearfix'></div>
-
-  <%= yield %>
-
-  <div class='clearfix'></div>
-  <div class='clearfix'></div>
-
-  <%= render 'shared/footer' %>
+  <div id='wrapper'>
+    <div id='header'>
+      <%= render 'shared/header' %>
+    </div>
+    <div class='margin-padded-space'></div>
+    <div class='clearfix'></div>
+    <div id='content'>
+      <%= yield %>
+    </div>
+    <div class='clearfix'></div>
+    <div class='margin-padded-space'></div>
+    <div id='footer'>
+      <%= render 'shared/footer' %>
+    </div>
+  </div>
 
 </body>
 </html>

@@ -9,7 +9,6 @@ class ReportsController < ApplicationController
 
       respond_to do |format|
         if @report.save
-          increment_report_count
           format.html { redirect_to @movie, notice: 'Report was successfully created.' }
           format.js
         else
@@ -21,11 +20,6 @@ class ReportsController < ApplicationController
   end
 
   private
-    def increment_report_count
-      @review.report_count += 1
-      @review.save
-    end
-
     def report_params
       params.require(:report).permit(:review_id)
     end

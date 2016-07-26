@@ -92,7 +92,7 @@
               <% if user_signed_in? %>
                 <div class='margin-padded-space'>
                   <h2>Rate This Movie:</h2>
-                  <div class='star-rating' data-score='<%= @rating_score %>'></div>
+                  <div class='star-rating' data-score='<%= @rating.try(:score).to_i %>'></div>
                 </div>
 
                 <div class='favorite-action'>
@@ -156,6 +156,5 @@
 <% if user_signed_in? %>
   <%= hidden_field_tag :user_id, current_user.id %>
   <%= hidden_field_tag :movie_id, @movie.id %>
-  <%= hidden_field_tag :rating_id, @rating.id %>
-  <%= hidden_field_tag :already_rated, @already_rated %>
+  <%= hidden_field_tag :rating_id, @rating.try(:id) %>
 <% end %>

@@ -13,7 +13,6 @@ createRating = (user_id, movie_id, score) ->
     dataType: 'json'
     success: (data) ->
       $('.avg-star-rating').raty 'set', score: data.average
-      $('#already_rated').val(1);
       $('#rating_id').val(data.rated);
 
 updateRating = (user_id, movie_id, score, id) ->
@@ -45,9 +44,8 @@ $(document).on 'page:change', ->
       user_id = $('#user_id').val()
       movie_id = $('#movie_id').val()
       id = $('#rating_id').val()
-      already_rated = $('#already_rated').val();
 
-      if already_rated == '0'
+      if id == ''
         createRating(user_id, movie_id, score)
       else
         updateRating(user_id, movie_id, score, id)

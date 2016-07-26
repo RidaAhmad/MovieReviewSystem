@@ -2,69 +2,37 @@ class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
   before_action :select_all_actors, only: [:new, :edit]
+  before_action :approval_confirmed, only: [:show, :edit, :update]
+  before_action :sanitize_trailer, only: [:create, :update]
 
-  # GET /movies
-  # GET /movies.json
   def index
     @movies = params[:commit].present? ? Movie.retrieve_search_results(params) : Movie.retrieve_movies(params[:filter]).page(params[:page])
     @all_actors = Actor.actor_names
   end
 
-  # GET /movies/1
-  # GET /movies/1.json
   def show
-    if @movie.approved == true
-      @review = @movie.reviews.new
-      @reviews = @movie.reviews.page(params[:page])
+    @review = @movie.reviews.new
 
-      @favorite_movie = FavoriteMovie.get_favorited(current_user, @movie) if user_signed_in?
+    @reviews = @movie.reviews.page(params[:page])
 
-      @rating = @movie.ratings.new
-      if @movie.ratings.present?
-        @ratings = @movie.ratings
-        @average_rating = @movie.get_average_rating
-
-        if user_signed_in?
-          movie_ratings = @movie.ratings.get_ratings(current_user.id)
-          if movie_ratings.present?
-            @rating = movie_ratings.last
-            @already_rated = 1
-            @rating_score = @rating.score
-          else
-            @already_rated = 0
-          end
-        end
-      else
-        @rating_score ||= 0
-        @average_rating = 0
-      end
-
-      respond_to do |format|
-        format.html # show.html.erb
-        format.json { render json: @movie }
-      end
-    else
-      redirect_to movies_path
+    if user_signed_in?
+      @favorite_movie = FavoriteMovie.get_favorited(current_user, @movie)
+      @rating = @movie.ratings.get_ratings(current_user.id)
+      @rating ||= @movie.ratings.new
     end
   end
 
-  # GET /movies/new
   def new
     @movie = Movie.new
   end
 
-  # GET /movies/1/edit
   def edit
     @selected_movie_actors = @movie.actors.pluck(:id)
     @selected_genre = @movie.genre
   end
 
-  # POST /movies
-  # POST /movies.json
   def create
     @movie = Movie.new(movie_params)
-    @movie.trailer = ActionController::Base.helpers.sanitize(@movie.trailer, tags: %w(iframe))
-
     respond_to do |format|
       if @movie.save
         format.html { redirect_to @movie, notice: 'Movie was successfully created.' }
@@ -76,12 +44,7 @@ class MoviesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /movies/1
-  # PATCH/PUT /movies/1.json
   def update
-    @movie_params = params[:movie]
-    @movie_params[:trailer] = ActionController::Base.helpers.sanitize(@movie_params[:trailer], tags: %w(iframe))
-    params[:movie] = @movie_params
     respond_to do |format|
       if @movie.update(movie_params)
         format.html { redirect_to @movie, notice: 'Movie was successfully updated.' }
@@ -93,8 +56,6 @@ class MoviesController < ApplicationController
     end
   end
 
-  # DELETE /movies/1
-  # DELETE /movies/1.json
   def destroy
     @movie.destroy
     respond_to do |format|
@@ -111,17 +72,25 @@ class MoviesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_movie
       @movie = Movie.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def movie_params
       params.require(:movie).permit(:title, :description, :trailer, :genre, :release_date, :duration, attachments_attributes: [:id, :image, :_destroy], actor_ids: [])
     end
 
     def select_all_actors
       @all_movie_actors = Actor.pluck(:name, :id)
+    end
+
+    def approval_confirmed
+      redirect_to root_path unless @movie.approved?
+    end
+
+    def sanitize_trailer
+      @movie_params = params[:movie]
+      @movie_params[:trailer] = ActionController::Base.helpers.sanitize(@movie_params[:trailer], tags: %w(iframe))
+      params[:movie] = @movie_params
     end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160715140411) do
+ActiveRecord::Schema.define(version: 20160726090244) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -108,8 +108,7 @@ ActiveRecord::Schema.define(version: 20160715140411) do
     t.datetime "updated_at",                       null: false
   end
 
-  add_index "ratings", ["movie_id"], name: "index_ratings_on_movie_id", using: :btree
-  add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree
+  add_index "ratings", ["movie_id", "user_id"], name: "index_ratings_on_movie_id_and_user_id", unique: true, using: :btree
 
   create_table "reports", force: :cascade do |t|
     t.integer  "review_id",  limit: 4, null: false

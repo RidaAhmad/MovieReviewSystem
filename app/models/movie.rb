@@ -1,5 +1,6 @@
 class Movie < ActiveRecord::Base
   SPHINX_PER_PAGE = 12
+  PER_TYPE = 4
   DEFAULT_SEARCH_FILTER = { approved: true }
   DEFAULT_SEARCH_ORDER = 'updated_at desc'
   GENRES = ['horror', 'comedy', 'action', 'crime', 'drama', 'thriller', 'fantasy', 'animation']

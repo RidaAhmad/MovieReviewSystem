@@ -2,6 +2,8 @@ class Report < ActiveRecord::Base
   belongs_to :review
   belongs_to :user
 
+  validates :review_id, uniqueness: { scope: :user_id }
+
   after_create :increment_report_count
   after_destroy :decrement_report_count
 

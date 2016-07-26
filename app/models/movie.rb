@@ -66,6 +66,10 @@ class Movie < ActiveRecord::Base
     params[:commit].present? ? Movie.retrieve_search_results(params) : Movie.retrieve_movies(params[:filter]).page(params[:page])
   end
 
+  def set_unapproved!
+    self.update(approved: false)
+  end
+
   private
     def self.release_date_range(start_date, end_date)
       if start_date.present? && end_date.present?

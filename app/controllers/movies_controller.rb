@@ -6,7 +6,7 @@ class MoviesController < ApplicationController
   before_action :sanitize_trailer, only: [:create, :update]
 
   def index
-    @movies = params[:commit].present? ? Movie.retrieve_search_results(params) : Movie.retrieve_movies(params[:filter]).page(params[:page])
+    @movies = Movie.search_based_on_conditions(params)
     @all_actors = Actor.actor_names
   end
 
@@ -65,7 +65,7 @@ class MoviesController < ApplicationController
   end
 
   def search
-    @search_results = Movie.search_movies(params)
+    @search_results = Movie.retrieve_search_results(params)
     respond_to do |format|
       format.js
     end

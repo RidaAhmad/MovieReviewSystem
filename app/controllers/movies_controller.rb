@@ -28,7 +28,6 @@ class MoviesController < ApplicationController
 
   def edit
     @selected_movie_actors = @movie.actors.pluck(:id)
-    @selected_genre = @movie.genre
   end
 
   def create

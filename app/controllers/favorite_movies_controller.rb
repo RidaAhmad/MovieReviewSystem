@@ -3,8 +3,7 @@ class FavoriteMoviesController < ApplicationController
   before_action :set_movie, only: [:create, :destroy]
 
   def create
-    @favorite_movie = @movie.favorite_movies.build
-    @favorite_movie.user = current_user
+    @favorite_movie = @movie.favorite_movies.build(user: current_user)
 
     respond_to do |format|
       if @favorite_movie.save

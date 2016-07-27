@@ -1,3 +1,16 @@
-<h1>Editing Review</h1>
+<% title 'Editing Review' %>
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-12'>
+      <div class='col-md-offset-2'></div>
+      <div class='form-devise'>
+        <h1 class='form-devise-heading'><%= yield(:title) %></h1>
 
-<%= render partial: 'form', locals: { remote_form: false } %>
+        <div class='form-review-edit'>
+          <%= render partial: 'form', locals: { remote_form: false } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

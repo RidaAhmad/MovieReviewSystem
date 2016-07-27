@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   def not_found
     respond_to do |format|
       format.html { redirect_to root_path, alert: 'Record Not Found!' }
+      format.json { render json: { status: 404, errors: 'Record Not Found!' } }
     end
   end
 end

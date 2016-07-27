@@ -4,7 +4,7 @@
       <div class='field'>
         <%= label_tag :title %>
         <div class='clearfix'></div>
-        <%= text_field_tag :title, nil, class: 'form-control' %>
+        <%= text_field_tag :title, params[:title], class: 'form-control' %>
       </div>
     </div>
 
@@ -12,7 +12,7 @@
       <div class='field'>
         <%= label_tag :release_date_start, 'Release Date Start' %>
         <div class='clearfix'></div>
-        <%= date_field_tag :release_date_start, nil, class: 'form-control' %>
+        <%= date_field_tag :release_date_start, params[:release_date_start], class: 'form-control' %>
       </div>
     </div>
 
@@ -20,7 +20,7 @@
       <div class='field'>
         <%= label_tag :release_date_end, 'Release Date End' %>
         <div class='clearfix'></div>
-        <%= date_field_tag :release_date_end, nil, class: 'form-control' %>
+        <%= date_field_tag :release_date_end, params[:release_date_end], class: 'form-control' %>
       </div>
     </div>
 
@@ -28,7 +28,7 @@
       <div class='field'>
         <%= label_tag :actor %>
         <div class='clearfix'></div>
-        <%= select_tag :actor, options_for_select(@all_actors), { include_blank: 'Select Actor' } %>
+        <%= select_tag :actor, options_for_select(@all_actors, params[:actor]), { include_blank: 'Select Actor' } %>
       </div>
     </div>
 
@@ -36,13 +36,13 @@
       <div class='field'>
         <%= label_tag :genre %>
         <div class='clearfix'></div>
-        <%= select_tag :genre, options_for_select(Movie::GENRES.map { |genre| [genre.titleize, genre] }), { include_blank: 'Select Genre' } %>
+        <%= select_tag :genre, options_for_select(Movie::GENRES.map { |genre| [genre.titleize, genre] }, params[:genre]), { include_blank: 'Select Genre' } %>
       </div>
     </div>
 
     <div class='form-group margin-padded-space'>
-        <span class='glyphicon glyphicon-search'></span>
-        <%= submit_tag 'Advance Search', class: 'btn btn-lg btn-primary' %>
+      <span class='glyphicon glyphicon-search'></span>
+      <%= submit_tag 'Advance Search', class: 'btn btn-lg btn-primary' %>
     </div>
   <% end %>
 </div>

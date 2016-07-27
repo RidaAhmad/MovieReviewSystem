@@ -1,3 +1,4 @@
+<% title 'Movies' %>
 <div class='container'>
   <div>
     <%= render 'search' %>
@@ -7,7 +8,7 @@
     <% model_class = Movie %>
 
     <div class='movie-name'>
-      <h1 class='text-center'><%= t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+      <h1 class='text-center'><%= yield(:title) %></h1>
     </div>
 
     <div class='row'>
@@ -28,7 +29,7 @@
   <% else %>
     <div class='margin-padded-space'>
       <div class='text-center'>
-        No Movie To Show Yet.
+        No Movies Found.
       </div>
     </div>
   <% end %>

@@ -1,3 +1,4 @@
+<% title title_titleize(@movie.title) %>
 <div class='container movie-show'>
   <div class='row'>
     <div class='movie-details'>
@@ -7,7 +8,7 @@
           <div class='show-movie'>
             <div class='movie-name'>
               <div class='text-center'>
-                <h1><%= title_titleize(@movie.title) %></h1>
+                <h1><%= yield(:title) %></h1>
               </div>
             </div>
 

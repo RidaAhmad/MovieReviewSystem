@@ -16,6 +16,7 @@ class RatingsController < ApplicationController
         format.json { render json: { rating: @rating, average: @movie.get_average_rating, rated: @rating.id } }
       else
         format.html { render :new }
+        format.json { render json: { errors: 'Rating could not be created!' } }
       end
     end
   end
@@ -27,6 +28,7 @@ class RatingsController < ApplicationController
         format.json { render json: { rating: @rating, average: @movie.get_average_rating } }
       else
         format.html { render :edit }
+        format.json { render json: { errors: 'Rating could not be updated!' } }
       end
     end
   end

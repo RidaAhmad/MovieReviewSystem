@@ -1,6 +1,7 @@
 class Movie < ActiveRecord::Base
   SPHINX_PER_PAGE = 12
   PER_TYPE = 4
+  DEFAULT_INCLUDE = { include: :attachments }
   DEFAULT_SEARCH_FILTER = { approved: true }
   DEFAULT_SEARCH_ORDER = 'updated_at desc'
   GENRES = ['horror', 'comedy', 'action', 'crime', 'drama', 'thriller', 'fantasy', 'animation']
@@ -29,14 +30,15 @@ class Movie < ActiveRecord::Base
   scope :top, -> { eager_load(:ratings).where('movies.approved = true').select('avg(ratings.score)').group('movies.id').order('avg(ratings.score) desc, movies.updated_at desc') }
 
   def self.retrieve_movies(movie_filter)
+    movies = self.includes(:attachments)
     if movie_filter == 'featured'
-      self.featured
+      movies.featured
     elsif movie_filter == 'latest'
-      self.latest
+      movies.latest
     elsif movie_filter == 'top'
-      self.top
+      movies.top
     else
-      self.approved
+      movies.approved
     end
   end
 
@@ -59,7 +61,6 @@ class Movie < ActiveRecord::Base
     default_search_options[:conditions][:actor_name] = params[:actor] if params[:actor].present?
     default_search_options[:with][:release_date] = release_date_range(params[:release_date_start], params[:release_date_end]) if params[:release_date_start].present?
     query = params[:query] if params[:query].present?
-
     self.search(query, default_search_options)
   end
 
@@ -94,7 +95,8 @@ class Movie < ActiveRecord::Base
         with: DEFAULT_SEARCH_FILTER,
         conditions: {},
         page: params[:page],
-        per_page: SPHINX_PER_PAGE
+        per_page: SPHINX_PER_PAGE,
+        sql: DEFAULT_INCLUDE,
       }
     end
 end

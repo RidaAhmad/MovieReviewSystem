@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   private
     def set_user
       @user = User.find(params[:id])
-      @user_favorites = @user.favorites.page(params[:page])
+      @user_favorites = @user.favorites.includes(:attachments).page(params[:page])
     end
 
     def authenticate_current_user

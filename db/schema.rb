@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 20160727111244) do
     t.string   "genre",        limit: 30,                    null: false
     t.datetime "release_date",                               null: false
     t.integer  "duration",     limit: 4
+    t.boolean  "delta",                      default: true,  null: false
   end
 
   create_table "ratings", force: :cascade do |t|

@@ -17,7 +17,7 @@ class MoviesController < ApplicationController
 
     if user_signed_in?
       @favorite_movie = FavoriteMovie.get_favorited(current_user, @movie)
-      @rating = @movie.ratings.get_ratings(current_user.id)
+      @rating = @movie.ratings.get_last_rating(current_user.id)
       @rating ||= @movie.ratings.new
     end
   end

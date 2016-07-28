@@ -8,7 +8,7 @@ ActiveAdmin.register Actor do
     f.inputs do
       f.input :name
       f.input :bio
-      f.input :gender, as: :select, collection: ['male', 'female'].map {|gender| [gender.titleize, gender]}, include_blank: false
+      f.input :gender, as: :select, collection: Actor::GENDERS.map {|gender| [gender.titleize, gender]}, include_blank: false
     end
     f.actions
   end

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  rescue_from ThinkingSphinx::ConnectionError, with: :sphinx_search_unavailable
 
   protect_from_forgery with: :exception
 
@@ -15,6 +16,13 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.html { redirect_to root_path, alert: 'Record Not Found!' }
       format.json { render json: { status: 404, errors: 'Record Not Found!' } }
+    end
+  end
+
+  def sphinx_search_unavailable
+    respond_to do |format|
+      format.html { redirect_to root_path, alert: 'Search Unavailable Currently!' }
+      format.json { render json: { errors: 'Search Unavailable Currently!' } }
     end
   end
 end

@@ -46,11 +46,26 @@ class Movie < ActiveRecord::Base
     ratings.present? ? ratings.average(:score) : 0
   end
 
+  def attachments_hash
+    if self.attachments.present?
+      paths = {}
+      {
+        attachments: self.attachments.each do |attachment|
+          paths[attachment.image_file_name.to_s] = attachment.image.url(:medium)
+        end,
+        attachments_paths: paths
+      }
+    else
+      {}
+    end
+  end
+
   def detailed_hash
     {
       details: self,
       actors: actors,
       reviews: reviews,
+      posters: self.attachments_hash,
     }
   end
 

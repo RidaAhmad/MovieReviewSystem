@@ -28,7 +28,7 @@ class Movie < ActiveRecord::Base
   scope :approved, -> { where(approved: true).ordered }
   scope :featured, -> { where(approved: true, featured: true).ordered }
   scope :latest, -> { where(approved: true).order(release_date: :desc) }
-  scope :top, -> { eager_load(:ratings).where('movies.approved = true').select('avg(ratings.score)').group('movies.id').order('avg(ratings.score) desc, movies.updated_at desc') }
+  scope :top, -> { eager_load(:ratings).where(approved: true).select('avg(ratings.score)').group('movies.id').order('avg(ratings.score) desc, movies.updated_at desc') }
 
   def self.retrieve_movies(movie_filter)
     movies = self.includes(:attachments)

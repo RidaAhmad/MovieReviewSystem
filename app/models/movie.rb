@@ -12,6 +12,7 @@ class Movie < ActiveRecord::Base
   validates :genre, presence: true, length: { maximum: 30 }, inclusion: { in: GENRES }
   validates :trailer, length: { maximum: 255 }
   validates :release_date, presence: true
+  #validates :duration, numericality: { greater_than_or_equal_to: 0 }
 
   has_many :appearances, dependent: :destroy
   has_many :actors, through: :appearances
@@ -27,7 +28,7 @@ class Movie < ActiveRecord::Base
   scope :approved, -> { where(approved: true).ordered }
   scope :featured, -> { where(approved: true, featured: true).ordered }
   scope :latest, -> { where(approved: true).order(release_date: :desc) }
-  scope :top, -> { joins('left outer join ratings on movies.id=ratings.movie_id').where(approved: true).group('movies.id').order('avg(ratings.score) desc, movies.updated_at desc') }
+  scope :top, -> { joins(:ratings).where(approved: true).group('movies.id').order('avg(ratings.score) desc, movies.updated_at desc') }
 
   def self.retrieve_movies(movie_filter)
     movies = self.includes(:attachments)

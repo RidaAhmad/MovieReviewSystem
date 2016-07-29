@@ -1,7 +1,7 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :select_all_actors, only: [:new, :edit]
+  before_action :select_all_actors, only: [:new, :edit, :update, :create]
   before_action :approval_confirmed, only: [:show, :edit, :update]
   before_action :sanitize_trailer, only: [:create, :update]
 

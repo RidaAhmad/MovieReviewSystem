@@ -8,11 +8,10 @@ class Movie < ActiveRecord::Base
 
   paginates_per SPHINX_PER_PAGE
 
-  validates :title, presence: true, length: { maximum: 150 }
+  validates :title, presence: true, length: { maximum: 150 }, format: { with: /[a-zA-Z0-9\s]+/ }
   validates :genre, presence: true, length: { maximum: 30 }, inclusion: { in: GENRES }
   validates :trailer, length: { maximum: 255 }
   validates :release_date, presence: true
-  validates :duration, numericality: { greater_than_or_equal_to: 0 }
 
   has_many :appearances, dependent: :destroy
   has_many :actors, through: :appearances

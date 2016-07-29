@@ -11,6 +11,10 @@ module PagesHelper
     return '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$'
   end
 
+  def get_title_regex
+    return '[a-zA-Z0-9\s]+'
+  end
+
   def movies_available?(featured_movies, latest_movies, top_movies)
     featured_movies.present? || latest_movies.present? || top_movies.present?
   end

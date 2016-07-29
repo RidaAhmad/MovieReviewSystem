@@ -2,7 +2,7 @@
   <%= form_tag '/movies', method: 'get', class: 'form-inline' do %>
     <div class='form-group'>
       <div class='field'>
-        <%= text_field_tag :query, params[:query], class: 'form-control' %>
+        <%= text_field_tag :query, params[:query], pattern: get_title_regex, class: 'form-control' %>
         <%= submit_tag 'Search', class: 'btn btn-lg btn-primary' %>
       </div>
     </div>

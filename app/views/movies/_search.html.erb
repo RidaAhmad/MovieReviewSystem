@@ -4,7 +4,7 @@
       <div class='field'>
         <%= label_tag :title %>
         <div class='clearfix'></div>
-        <%= text_field_tag :title, params[:title], class: 'form-control' %>
+        <%= text_field_tag :title, params[:title], pattern: get_title_regex, class: 'form-control' %>
       </div>
     </div>
 

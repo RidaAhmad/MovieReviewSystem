@@ -63,63 +63,65 @@
       <div class='col-md-12'>
         <div class='col-md-offset-1'></div>
         <div class='row'>
-        <div class='show-movie'>
-          <div class='col-md-10'>
-            <% if @movie.description.present? %>
-              <div class='movie-info'>
-                <div class='movie-info-heading'>Description:-</div>
-                <%= raw @movie.description %>
-              </div>
-            <% end %>
+          <div class='show-movie'>
+            <div class='col-md-10'>
+              <% if @movie.description.present? %>
+                <div class='movie-info'>
+                  <div class='movie-info-heading'>Description:-</div>
+                  <%= raw @movie.description %>
+                </div>
+              <% end %>
 
-            <% if @movie.trailer.present? %>
-              <div>
-                <div class='movie-info-heading'>Trailer:</div>
-              </div>
-              <div class='embed-responsive embed-responsive-16by9'>
-                <%= raw @movie.trailer %>
-              </div>
-            <% end %>
+              <% if @movie.trailer.present? %>
+                <div>
+                  <div class='movie-info-heading'>Trailer:</div>
+                </div>
+                <div class='embed-responsive embed-responsive-16by9'>
+                  <%= raw @movie.trailer %>
+                </div>
+              <% end %>
 
-            <div class='margin-padded-space'>
-              <div class='movie-info-heading'>Movie Rating:</div>
-              <div class='avg-star-rating' data-score='<%= @movie.get_average_rating %>'></div>
-            </div>
-
-            <% if user_signed_in? %>
               <div class='margin-padded-space'>
-                <div class='movie-info-heading'>Rate This Movie:</div>
-                <div class='star-rating' data-score='<%= @rating.try(:score).to_i %>'></div>
+                <div class='movie-info-heading'>Movie Rating:</div>
+                <div class='avg-star-rating' data-score='<%= @movie.get_average_rating %>'></div>
               </div>
 
-              <div class='favorite-action'>
+              <% if user_signed_in? %>
                 <div class='margin-padded-space'>
-                  <% if @favorite_movie.present? %>
-                    <%= link_to 'Mark As Unfavorite', movie_favorite_movie_path(@movie, @favorite_movie), method: :delete, class: 'btn btn-mini btn-danger' %>
-                  <% else %>
-                    <%= link_to 'Mark As Favorite', movie_favorite_movies_path(@movie), method: :post, class: 'btn btn-mini btn-info' %>
-                  <% end %>
+                  <div class='movie-info-heading'>Rate This Movie:</div>
+                  <div class='star-rating' data-score='<%= @rating.try(:score).to_i %>'></div>
                 </div>
-              </div>
 
-              <div class='margin-padded-space'>
-                <div class='movie-info-heading'>Add Review:</div>
-                <%= render partial: 'reviews/form', locals: { remote_form: true } %>
-              </div>
-            <% end %>
+                <div class='favorite-action'>
+                  <div class='margin-padded-space'>
+                    <% if @favorite_movie.present? %>
+                      <%= link_to 'Mark As Unfavorite', movie_favorite_movie_path(@movie, @favorite_movie), method: :delete, class: 'btn btn-mini btn-danger' %>
+                    <% else %>
+                      <%= link_to 'Mark As Favorite', movie_favorite_movies_path(@movie), method: :post, class: 'btn btn-mini btn-info' %>
+                    <% end %>
+                  </div>
+                </div>
 
-            <% if @reviews.present? %>
-              <div>
-                <div class='movie-info-heading'>Reviews:</div>
-                <div id='reviews-container'>
+                <div class='margin-padded-space'>
+                  <div class='movie-info-heading'>Add Review:</div>
+                  <%= render partial: 'reviews/form', locals: { remote_form: true } %>
+                </div>
+              <% end %>
+
+              <% if @reviews.present? %>
+                <div>
+                  <div class='movie-info-heading'>Reviews:</div>
+                </div>
+              <% end %>
+              <div id='reviews-container'>
+                <% if @reviews.present? %>
                   <%= render @reviews %>
-                </div>
+                <% end %>
               </div>
-            <% end %>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
     <div class='margin-padded-space'>
       <div class='text-center'>

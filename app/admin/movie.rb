@@ -33,6 +33,15 @@ ActiveAdmin.register Movie do
     column :approved
     column :genre
     column :actor_ids
+    column 'Actors' do |movie|
+      div do
+        movie.actors.each do |actor|
+          span do
+            actor.name
+          end
+        end
+      end
+    end
     column 'Posters' do |movie|
       div do
         movie.attachments.each do |poster|
@@ -45,5 +54,9 @@ ActiveAdmin.register Movie do
     column :description
     actions
   end
+
+  filter :title, as: :select, collection: Movie.all.map{ |movie| [movie.title, movie.id] }
+  filter :genre, as: :select, collection: Movie::GENRES.map {|genre| [genre.titleize, genre]}
+  filter :actors
 
 end

@@ -23,6 +23,9 @@ ActiveAdmin.register Review do
     actions
   end
 
+  filter :movie
+  filter :user_id, as: :select, collection: User.all.map{ |user| [user.email, user.id] }
+
   show do |review|
     attributes_table do
       row :movie

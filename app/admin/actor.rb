@@ -13,4 +13,8 @@ ActiveAdmin.register Actor do
     f.actions
   end
 
+  filter :movies
+  filter :name, as: :select, collection: Actor.all.map{ |actor| [actor.name, actor.id] }
+  filter :gender, as: :select, collection: Actor::GENDERS.map {|gender| [gender.titleize, gender]}
+
 end

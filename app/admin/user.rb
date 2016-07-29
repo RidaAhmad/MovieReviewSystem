@@ -23,6 +23,8 @@ ActiveAdmin.register User do
     actions
   end
 
+  filter :favorites
+
   show do |user|
     attributes_table do
       row :id

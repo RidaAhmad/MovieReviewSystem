@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_filter :store_user_location, unless: :devise_controller?
 
   protected
 
@@ -24,5 +25,13 @@ class ApplicationController < ActionController::Base
       format.html { redirect_to root_path, alert: 'Search Unavailable Currently!' }
       format.json { render json: { errors: 'Search Unavailable Currently!' } }
     end
+  end
+
+  def after_sign_out_path_for(resource)
+    new_user_session_path
+  end
+
+  def store_user_location
+    store_location_for(:user, request.url)
   end
 end

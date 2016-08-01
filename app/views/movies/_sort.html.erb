@@ -13,7 +13,7 @@
       <div class='field'>
         <%= label_tag :order %>
         <div class='clearfix'></div>
-        <%= select_tag :order, options_for_select(Movie::SORTING_ORDERS.map { |sort_order| [sort_order.titleize, sort_order] }, params[:order]), { include_blank: 'Select Order' } %>
+        <%= select_tag :order, options_for_select(Movie::SORTING_ORDERS.map { |sort_order| [sort_order.titleize, sort_order] }, params[:order]) %>
       </div>
     </div>
 

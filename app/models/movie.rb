@@ -6,7 +6,7 @@ class Movie < ActiveRecord::Base
   DEFAULT_SEARCH_ORDER = 'updated_at desc'
   GENRES = ['horror', 'comedy', 'action', 'crime', 'drama', 'thriller', 'fantasy', 'animation']
   SORTING_OPTIONS = ['release date', 'rating']
-  SORTING_ORDERS = ['ascending', 'descending']
+  SORTING_ORDERS = ['descending', 'ascending']
 
   paginates_per SPHINX_PER_PAGE
 

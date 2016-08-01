@@ -59,4 +59,28 @@ ActiveAdmin.register Movie do
   filter :genre, as: :select, collection: Movie::GENRES.map {|genre| [genre.titleize, genre]}
   filter :actors
 
+  show do
+    attributes_table do
+      row :title
+      row :genre
+      row :duration
+      row :release_date
+      row :trailer
+      row :description
+      row :featured
+      row :approved
+      if movie.attachments.present?
+        row :posters do
+          div do
+            movie.attachments.each do |poster|
+              div do
+                image_tag(poster.image.url(:thumb))
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+
 end

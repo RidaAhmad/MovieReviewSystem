@@ -4,6 +4,7 @@ class MoviesController < ApplicationController
   before_action :select_all_actors, only: [:new, :edit, :update, :create]
   before_action :approval_confirmed, only: [:show, :edit, :update]
   before_action :sanitize_trailer, only: [:create, :update]
+  before_action :validate_date, only: [:index]
 
   def index
     @movies = Movie.search_based_on_conditions(params)
@@ -92,5 +93,15 @@ class MoviesController < ApplicationController
       @movie_params = params[:movie]
       @movie_params[:trailer] = ActionController::Base.helpers.sanitize(@movie_params[:trailer], tags: %w(iframe))
       params[:movie] = @movie_params
+    end
+
+    def validate_date
+      return if ((params[:release_date_start].blank? && params[:release_date_end].blank?) || params[:release_date_end].blank?)
+      if params[:release_date_start].blank?
+        message = 'Start Date Missing, Please Enter Start Date.'
+      elsif params[:release_date_start] > params[:release_date_end]
+        message = 'Start Date Greater Than End Date, Please Enter Valid Dates.'
+      end
+      redirect_to movies_path, alert: message if message.present?
     end
 end

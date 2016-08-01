@@ -1,5 +1,5 @@
 <% movie_actors.each do |actor| %>
   <div class='movie-info'>
-    <%= title_titleize(actor.name) %>
+    <%= link_to title_titleize(actor.name), actor %>
   </div>
 <% end %>

@@ -1,0 +1,30 @@
+<div class='margin-padded-space'>
+  <div id='picture-carousel' class='carousel slide' data-ride='carousel'>
+    <ol class='carousel-indicators'>
+      <% $i = 0 %>
+      <% pictures.each_with_index do |picture, index| %>
+       <li data-target='#picture-carousel' data-slide-to=<%= index %> class='active'></li>
+      <% end %>
+    </ol>
+    <div class='carousel-inner' role='listbox'>
+      <div class='item active'>
+        <%= image_tag(pictures.first.image.url(:large), class: 'img-responsive') %>
+      </div>
+      <% pictures.each_with_index do |picture, index| %>
+        <% if index > 0 %>
+          <div class='item'>
+            <%= image_tag(picture.image.url(:large), class: 'img-responsive') %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <a class='left carousel-control' href='#picture-carousel' role='button' data-slide='prev'>
+      <span class='glyphicon glyphicon-chevron-left' aria-hidden='true'></span>
+      <span class='sr-only'>Previous</span>
+    </a>
+    <a class='right carousel-control' href='#picture-carousel' role='button' data-slide='next'>
+      <span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span>
+      <span class='sr-only'>Next</span>
+    </a>
+  </div>
+</div>

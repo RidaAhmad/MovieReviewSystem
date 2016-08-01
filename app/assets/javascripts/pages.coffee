@@ -3,3 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).ready ->
   $('.msg-container').fadeOut 5000
+
+$(document).on 'page:change', ->
+  $('.carousel-inner img').click (e) ->
+    $('#image-modal img').attr 'src', $(this).attr('src')
+    $('#image-modal').modal('show');

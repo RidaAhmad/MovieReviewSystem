@@ -1,2 +1,78 @@
-<h1>Actors#show</h1>
-<p>Find me in app/views/actors/show.html.erb</p>
+<% title title_titleize(@actor.name) %>
+<div class='container movie-show'>
+  <div class='row'>
+    <div class='movie-details'>
+      <div class='col-md-12'>
+        <div class='col-md-offset-1'></div>
+        <div class='row'>
+          <div class='show-movie'>
+            <div class='movie-name'>
+              <div class='text-center'>
+                <h1><%= yield(:title) %></h1>
+              </div>
+            </div>
+
+            <div class='clearfix'></div>
+            <div class='col-md-5'>
+              <div class='margin-padded-space'>
+                <% if @actor.attachments.present? %>
+                  <%= render partial: 'shared/slider', locals: { pictures: @actor.attachments } %>
+                <% else %>
+                  <%= image_tag('missing.png', size: '400x500', alt: 'Picture Unavailable', class: 'img-responsive') %>
+                <% end %>
+              </div>
+              <%= render partial: 'shared/modal_box' %>
+            </div>
+
+            <div class='col-md-5'>
+              <div class='movie-info'>
+                <div class='movie-info-heading'>Name:</div>
+                <h2><%= title_titleize(@actor.name) %></h2>
+              </div>
+
+              <div class='movie-info'>
+                <div class='movie-info-heading'>Gender:</div>
+                <h2><%= @actor.gender.titleize %></h2>
+              </div>
+
+              <% if @actor.bio.present? %>
+                <div class='movie-info'>
+                  <div class='movie-info-heading'>Biography:</div>
+                  <h2><%= @actor.bio %></h2>
+                </div>
+              <% end %>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class='col-md-12'>
+        <div class='col-md-offset-1'></div>
+        <div class='row'>
+          <div class='show-movie'>
+            <div class='movie-name'>
+              <div class='text-center'>
+                <div class='movie-info-heading'>Acted In</div>
+              </div>
+            </div>
+            <div class='col-md-10'>
+              <% if @movies.present? %>
+                <div class='movie-info'>
+                    <%= render partial: 'movies', locals: { actor_movies: @movies } %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class='margin-padded-space'>
+      <div class='text-center'>
+        <%= paginate @movies %>
+      </div>
+    </div>
+  </div>
+
+</div>

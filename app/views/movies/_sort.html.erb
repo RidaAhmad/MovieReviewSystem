@@ -1,0 +1,24 @@
+<div class='form-sort'>
+  <%= form_tag movies_path, method: 'get', class: 'form-inline' do %>
+
+    <div class='form-group'>
+      <div class='field'>
+        <%= label_tag :sort %>
+        <div class='clearfix'></div>
+        <%= select_tag :sort, options_for_select(Movie::SORTING_OPTIONS.map { |sort_option| [sort_option.titleize, sort_option] }, params[:sort]), { include_blank: 'Sort On' } %>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <div class='field'>
+        <%= label_tag :order %>
+        <div class='clearfix'></div>
+        <%= select_tag :order, options_for_select(Movie::SORTING_ORDERS.map { |sort_order| [sort_order.titleize, sort_order] }, params[:order]), { include_blank: 'Select Order' } %>
+      </div>
+    </div>
+
+    <div class='form-group margin-padded-space'>
+      <%= submit_tag 'Sort', class: 'btn btn-lg btn-primary' %>
+    </div>
+  <% end %>
+</div>

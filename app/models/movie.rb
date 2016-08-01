@@ -5,6 +5,8 @@ class Movie < ActiveRecord::Base
   DEFAULT_SEARCH_FILTER = { approved: true }
   DEFAULT_SEARCH_ORDER = 'updated_at desc'
   GENRES = ['horror', 'comedy', 'action', 'crime', 'drama', 'thriller', 'fantasy', 'animation']
+  SORTING_OPTIONS = ['release date', 'rating']
+  SORTING_ORDERS = ['ascending', 'descending']
 
   paginates_per SPHINX_PER_PAGE
 
@@ -28,6 +30,8 @@ class Movie < ActiveRecord::Base
   scope :featured, -> { where(approved: true, featured: true).ordered }
   scope :latest, -> { where(approved: true).order(release_date: :desc) }
   scope :top, -> { joins(:ratings).where(approved: true).group('movies.id').order('avg(ratings.score) desc, movies.updated_at desc') }
+  scope :least_rated, -> { joins(:ratings).where(approved: true).group('movies.id').order('avg(ratings.score) asc, movies.updated_at desc') }
+  scope :oldest, -> { where(approved: true).order(release_date: :asc) }
 
   def self.retrieve_movies(movie_filter)
     movies = self.includes(:attachments)
@@ -79,8 +83,30 @@ class Movie < ActiveRecord::Base
     self.search(query, default_search_options)
   end
 
+  def self.retrieve_sorted_results(params)
+    if params[:sort] == 'release date'
+      if params[:order] == 'ascending'
+        self.oldest
+      else
+        self.latest
+      end
+    elsif params[:sort] == 'rating'
+      if params[:order] == 'ascending'
+        self.least_rated
+      else
+        self.top
+      end
+    else
+      self.approved
+    end
+  end
+
+  def self.retrieve_ordered_results(params)
+    params[:commit] == 'Sort' ? self.retrieve_sorted_results(params).page(params[:page]) : self.retrieve_search_results(params)
+  end
+
   def self.search_based_on_conditions(params)
-    params[:commit].present? ? Movie.retrieve_search_results(params) : Movie.retrieve_movies(params[:filter]).page(params[:page])
+    params[:commit].present? ? Movie.retrieve_ordered_results(params) : Movie.retrieve_movies(params[:filter]).page(params[:page])
   end
 
   def set_unapproved!

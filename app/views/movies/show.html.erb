@@ -15,12 +15,13 @@
             <div class='clearfix'></div>
             <div class='col-md-5'>
               <div class='margin-padded-space'>
-                <%= render partial: 'poster', locals: { poster: @movie.attachments.first } %>
+                <% if @movie.attachments.present? %>
+                  <%= render partial: 'shared/slider', locals: { pictures: @movie.attachments } %>
+                <% else %>
+                  <%= image_tag('shared/poster-not-available.png', size: '400x500', alt: 'Movie Poster Unavailable', class: 'img-responsive') %>
+                <% end %>
               </div>
-
-              <div>
-                <%= render partial: 'posters', locals: { posters: @movie.attachments } %>
-              </div>
+              <%= render partial: 'shared/modal_box' %>
             </div>
 
             <div class='col-md-5'>

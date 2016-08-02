@@ -12,7 +12,7 @@ module PagesHelper
   end
 
   def get_title_regex
-    return '[a-zA-Z0-9\s]+'
+    return '[a-zA-Z0-9\-\:\s]+'
   end
 
   def movies_available?(featured_movies, latest_movies, top_movies)

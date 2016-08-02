@@ -84,20 +84,21 @@ class Movie < ActiveRecord::Base
   end
 
   def self.retrieve_sorted_results(params)
+    movies = self.includes(:attachments)
     if params[:sort] == 'release date'
       if params[:order] == 'ascending'
-        self.oldest
+        movies.oldest
       else
-        self.latest
+        movies.latest
       end
     elsif params[:sort] == 'rating'
       if params[:order] == 'ascending'
-        self.least_rated
+        movies.least_rated
       else
-        self.top
+        movies.top
       end
     else
-      self.approved
+      movies.approved
     end
   end
 

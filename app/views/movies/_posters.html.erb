@@ -1,7 +1,0 @@
-<% posters.in_groups_of(4, false).each do |poster_group| %>
-  <div>
-  <% poster_group.each_with_index do |poster, index| %>
-    <%= image_tag(poster.image.url(:thumb), class: 'poster-display') if index > 0 %>
-  <% end %>
-  </div>
-<% end %>

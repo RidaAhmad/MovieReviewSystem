@@ -19,7 +19,7 @@ class MoviesController < ApplicationController
   def show
     @review = @movie.reviews.new
 
-    @reviews = @movie.reviews.includes(:user).page(params[:page])
+    @reviews = @movie.reviews.includes(:user)
 
     if user_signed_in?
       @favorite_movie = FavoriteMovie.get_favorited(current_user, @movie)

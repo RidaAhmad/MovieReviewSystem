@@ -1,5 +1,5 @@
 <div class='form-search-header'>
-  <%= form_tag '/movies', method: 'get', class: 'form-inline' do %>
+  <%= form_tag movies_path, method: 'get', remote: true, class: 'form-inline' do %>
     <div class='form-group'>
       <div class='field'>
         <%= text_field_tag :query, params[:query], pattern: get_title_regex, class: 'form-control' %>

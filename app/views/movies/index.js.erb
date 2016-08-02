@@ -1,0 +1,7 @@
+<% if @movies.present? %>
+  $('.movies-display').html("<div><%= escape_javascript (render partial: 'movies', locals: { movies: @movies }) %></div>");
+  $('.movies-pagination').html("<%= escape_javascript (render partial: 'pagination', locals: { movies: @movies }) %>");
+<% else %>
+  $('.movies-display').html('<div>No Results Found!</div>');
+  $('.movies-pagination').html('');
+<% end %>

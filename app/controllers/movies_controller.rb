@@ -9,6 +9,11 @@ class MoviesController < ApplicationController
   def index
     @movies = Movie.search_based_on_conditions(params)
     @all_actors = Actor.actor_names
+
+    respond_to do |format|
+      format.js
+      format.html
+    end
   end
 
   def show
